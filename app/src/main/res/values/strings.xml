@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Discoverfy</string>
+    <string name="btn_login">Login to Spotify</string>
+    <string name="btn_save_to_library">Save</string>
+    <string name="btn_add_to_favourites">Favourite</string>
+    <string name="tv_song_title" />
+    <string name="tv_artist_name" />
+    <string name="tv_album_name" />
 </resources>

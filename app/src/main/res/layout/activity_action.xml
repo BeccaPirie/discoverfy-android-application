@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActionActivity">
+
+    <TextView
+        android:id="@+id/tv_artist_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/tv_artist_name"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_song_title"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="@+id/tv_song_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_song_title"
+        tools:text="Harry Styles" />
+
+    <TextView
+        android:id="@+id/tv_song_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:text="@string/tv_song_title"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Falling" />
+
+    <TextView
+        android:id="@+id/tv_album_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/tv_album_name"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_artist_name"
+        app:layout_constraintStart_toStartOf="@+id/tv_artist_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_artist_name"
+        tools:text="Fine Line" />
+
+    <Button
+        android:id="@+id/btn_save_to_library"
+        android:layout_width="120dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_album_name"
+        app:layout_constraintStart_toStartOf="@+id/tv_album_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_album_name"
+        tools:text="@string/btn_save_to_library" />
+
+    <Button
+        android:id="@+id/btn_add_to_favourites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="@string/btn_add_to_favourites" />
+</androidx.constraintlayout.widget.ConstraintLayout>

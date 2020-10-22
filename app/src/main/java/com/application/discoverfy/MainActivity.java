@@ -1,4 +1,4 @@
-package com.example.discoverfy;
+package com.application.discoverfy;
 
 import androidx.appcompat.app.AppCompatActivity;
 

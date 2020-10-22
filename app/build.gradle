@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.discoverfy"
+        applicationId "com.application.discoverfy"
         minSdkVersion 29
         targetSdkVersion 30
         versionCode 1

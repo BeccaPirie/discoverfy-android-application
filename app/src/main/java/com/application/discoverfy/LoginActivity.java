@@ -1,4 +1,4 @@
-package com.example.discoverfy;
+package com.application.discoverfy;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String CLIENT_ID = "842e1e18c0c14f29b0c1f6b2f3160497";
     private static final int REQUEST_CODE = 1337;
-    private static final String REDIRECT_URI = "com.spotifyapitest://callback";
+    private static final String REDIRECT_URI = "com.example.discoverfy://callback";
     private static final String SCOPES = "user-read-recently-played,user-library-modify,user-read-email,user-read-private";
     public static final String AUTH_TOKEN = "AUTH_TOKEN";
 
@@ -24,19 +24,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginSpotify();
-        /*
+        // if login button is pressed, allow the user to log in to Spotify
         Button button = findViewById(R.id.btn_login);
         button.setOnClickListener(view -> {
-            // Do something in response to button click
             if(view.getId() == R.id.btn_login) {
                 loginSpotify();
             }
         });
-
-         */
     }
 
+    // send a request to Spotify's authentication service and receive an authentication token to make calls to the API
     private void loginSpotify() {
         AuthenticationRequest.Builder builder =
                 new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
@@ -52,35 +49,34 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 
-        // Check if result comes from the correct activity
+        // if result is correct and from the right activity
         if (requestCode == REQUEST_CODE) {
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
 
             switch (response.getType()) {
-                // Response was successful and contains auth token
+                // response contains token and was successful
                 case TOKEN:
-                    // Handle successful response
-                    //String token = response.getAccessToken();
-
+                    // successful response
                     Intent intent1 = new Intent(LoginActivity.this,
-                            MainActivity.class);
+                            RecentlyPlayedActivity.class);
                     intent1.putExtra(AUTH_TOKEN, response.getAccessToken());
                     startActivity(intent1);
                     destroy();
                     break;
 
-                // Auth flow returned an error
+                // error returned
                 case ERROR:
-                    // Handle error response
+                    // error response
                     break;
 
-                // Most likely auth flow was cancelled
+                // cancelled
                 default:
-                    // Handle other cases
+                    // other cases
             }
         }
     }
 
+    // close activity
     public void destroy(){
         LoginActivity.this.finish();
     }
