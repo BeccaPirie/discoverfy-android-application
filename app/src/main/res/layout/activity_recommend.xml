@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:text="TextView"
+        android:text="Someone You Loved"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/tv_recommendations_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_recommendations_title"

@@ -11,11 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Discoverfy">
-        <activity android:name=".RecommendListItem"></activity>
+        <activity android:name=".RecommendListItem" />
+
         <activity android:name=".RecentlyPlayedListItem" />
-        <activity android:name=".ActionActivity" />
-        <activity android:name=".RecommendActivity" />
+
+        <activity android:name=".ActionActivity"></activity>
+
+        <activity android:name=".RecommendActivity">
+        </activity>
+
         <activity android:name=".RecentlyPlayedActivity" />
+
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

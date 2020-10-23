@@ -15,4 +15,5 @@
     <string name="tv_r_artist" />
     <string name="btn_options">Options</string>
     <string name="btn_view_favourite">Favourite</string>
+    <string name="btn_listen_on_spotify">Listen on Spotify</string>
 </resources>
