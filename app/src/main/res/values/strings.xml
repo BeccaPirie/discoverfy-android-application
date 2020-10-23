@@ -2,8 +2,17 @@
     <string name="app_name">Discoverfy</string>
     <string name="btn_login">Login to Spotify</string>
     <string name="btn_save_to_library">Save</string>
-    <string name="btn_add_to_favourites">Favourite</string>
+    <string name="btn_add_to_favourites">Add as Favourite</string>
     <string name="tv_song_title" />
     <string name="tv_artist_name" />
     <string name="tv_album_name" />
+    <string name="btn_discover">Discover</string>
+    <string name="tv_rp_number" />
+    <string name="tv_rp_title" />
+    <string name="tv_rp_artist" />
+    <string name="tv_r_number" />
+    <string name="tv_r_song_title" />
+    <string name="tv_r_artist" />
+    <string name="btn_options">Options</string>
+    <string name="btn_view_favourite">Favourite</string>
 </resources>
