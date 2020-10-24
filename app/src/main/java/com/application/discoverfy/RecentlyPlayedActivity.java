@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class RecentlyPlayedActivity extends AppCompatActivity {
 
+    // variables that will store the RecyclerView, the Adapter and the LayoutManager
     private RecyclerView recentRecyclerView;
     private RecyclerView.Adapter recentAdapter;
     private RecyclerView.LayoutManager recentLayoutManager;
@@ -19,6 +20,7 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recently_played);
 
+        // create an array list to store the items in the RecyclerView
         ArrayList<RecentlyPlayedListItem> recentlyPlayedListItems = new ArrayList<>();
         recentlyPlayedListItems.add(new RecentlyPlayedListItem("1.", "Someone You Loved", "Lewis Capaldi"));
         recentlyPlayedListItems.add(new RecentlyPlayedListItem("2.", "Wonder", "Shawn Mendes"));
@@ -41,12 +43,18 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         recentlyPlayedListItems.add(new RecentlyPlayedListItem("19.", "Someone To You", "BANNERS"));
         recentlyPlayedListItems.add(new RecentlyPlayedListItem("20.", "In the End", "Kodaline"));
 
-
+        // initialise the RecyclerView
         recentRecyclerView = findViewById(R.id.rv_recently_played);
+        // recommendRecyclerView will not change in size
         recentRecyclerView.setHasFixedSize(true);
+        // assign LayoutManager
         recentLayoutManager = new LinearLayoutManager(this);
+        // assign Adapter and pass in the array list of recently played songs
         recentAdapter = new RecentlyPlayedAdapter(recentlyPlayedListItems);
+
+        // pass the LayoutManager to the RecyclerView
         recentRecyclerView.setLayoutManager(recentLayoutManager);
+        // pass the Adapter to the RecyclerView
         recentRecyclerView.setAdapter(recentAdapter);
     }
 }

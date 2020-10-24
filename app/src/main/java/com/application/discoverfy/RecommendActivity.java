@@ -1,4 +1,3 @@
-
 package com.application.discoverfy;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +10,7 @@ import java.util.ArrayList;
 
 public class RecommendActivity extends AppCompatActivity {
 
+    // variables that will store the RecyclerView, the Adapter and the LayoutManager
     private RecyclerView recommendRecyclerView;
     private RecyclerView.Adapter recommendAdapter;
     private RecyclerView.LayoutManager recommendLayoutManager;
@@ -20,6 +20,7 @@ public class RecommendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend);
 
+        // create an array list to store the items in the RecyclerView
         ArrayList<RecommendListItem> recommendListItems = new ArrayList<>();
         recommendListItems.add(new RecommendListItem("1.", "Falling", "Harry Styles"));
         recommendListItems.add(new RecommendListItem("2.", "Perfect", "Ed Sheeran"));
@@ -42,11 +43,18 @@ public class RecommendActivity extends AppCompatActivity {
         recommendListItems.add(new RecommendListItem("19.", "Love Me Like You Do", "Ellie Goulding"));
         recommendListItems.add(new RecommendListItem("20.", "Dance Monkey", "Tones and I"));
 
+        // initialise the RecyclerView
         recommendRecyclerView = findViewById(R.id.rv_recommended_songs);
+        // recommendRecyclerView will not change in size
         recommendRecyclerView.setHasFixedSize(true);
+        // assign LayoutManager
         recommendLayoutManager = new LinearLayoutManager(this);
+        // assign Adapter and pass in the array list of recommendations
         recommendAdapter = new RecommendAdapter(recommendListItems);
+
+        // pass the LayoutManager to the RecyclerView
         recommendRecyclerView.setLayoutManager(recommendLayoutManager);
+        // pass the Adapter to the RecyclerView
         recommendRecyclerView.setAdapter(recommendAdapter);
     }
 }
