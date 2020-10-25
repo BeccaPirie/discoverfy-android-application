@@ -14,15 +14,14 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_action);
 
-        // TextViews to store the song title, the artist name and the album name
+        // variables to store the song title, the artist name and the album name
         TextView songTitle = (TextView) findViewById(R.id.tv_song_title);
         TextView artistName = (TextView) findViewById(R.id.tv_artist_name);
         TextView albumName = (TextView) findViewById(R.id.tv_album_name);
 
         // set the text
-        songTitle.setText("Falling");
-        artistName.setText("Harry Styles");
-        albumName.setText("Fine Line");
+        // DATA WILL BE DOWNLOADED FROM WEB SERVICE
+
 
         // button to play the song on Spotify
         Button btnListen = findViewById(R.id.btn_listen_on_spotify);
