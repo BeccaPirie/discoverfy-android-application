@@ -1,8 +1,11 @@
 package com.application.discoverfy;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,17 +21,28 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
 
     // ViewHolder
     public static class RecentlyPlayedViewHolder extends RecyclerView.ViewHolder {
+        private final Context context;
         public TextView textViewOne;
         public TextView textViewTwo;
         public TextView textViewThree;
+        public Button buttonOne;
 
         // constructor class
         public RecentlyPlayedViewHolder(@NonNull View itemView) {
             super(itemView);
-            // assign Views
+            context = itemView.getContext();
+
+            // assign TextViews and button
             textViewOne = itemView.findViewById(R.id.tv_rp_number);
             textViewTwo = itemView.findViewById(R.id.tv_rp_title);
             textViewThree = itemView.findViewById(R.id.tv_rp_artist);
+            buttonOne = itemView.findViewById(R.id.btn_discover);
+
+            // open RecommendActivity when item clicked
+            buttonOne.setOnClickListener((View v) -> {
+                final Intent intent = new Intent(context, RecommendActivity.class);
+                context.startActivity(intent);
+            });
         }
     }
 
@@ -52,10 +66,9 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
         // get the current item in the list
         RecentlyPlayedListItem current = recentlyPlayed.get(position);
 
-        // get the data from the current item in the array list and pass it to the Views
+        // get the data from the current item in the array list and pass it to the View
         holder.textViewOne.setText(current.getListNumber());
-        holder.textViewTwo.setText(current.getSongTitle());
-        holder.textViewThree.setText(current.getArtistName());
+
     }
 
     // return the number of items in the array list

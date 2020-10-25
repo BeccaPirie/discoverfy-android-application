@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -20,36 +21,40 @@ public class RecommendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend);
 
+        // get the TextView that displays the song title in the heading and set text to the selected song
+        TextView songTitle = (TextView) findViewById(R.id.tv_song_title_recommend);
+
         // create an array list to store the items in the RecyclerView
+        // DATA WILL BE DOWNLOADED FROM WEB SERVICE
         ArrayList<RecommendListItem> recommendListItems = new ArrayList<>();
-        recommendListItems.add(new RecommendListItem("1.", "Falling", "Harry Styles"));
-        recommendListItems.add(new RecommendListItem("2.", "Perfect", "Ed Sheeran"));
-        recommendListItems.add(new RecommendListItem("3.", "2002", "Anne-Marie"));
-        recommendListItems.add(new RecommendListItem("4.", "What a Man Gotta Do", "Jonas Brothers"));
-        recommendListItems.add(new RecommendListItem("5.", "Not About Angels", "Birdy"));
-        recommendListItems.add(new RecommendListItem("6.", "Hold My Girl", "George Ezra"));
-        recommendListItems.add(new RecommendListItem("7.", "Lonely", "Noah Cyrus"));
-        recommendListItems.add(new RecommendListItem("8.", "Naked", "James Arthur"));
-        recommendListItems.add(new RecommendListItem("9.", "Love Me Like You Do", "Ellie Goulding"));
-        recommendListItems.add(new RecommendListItem("10.", "Dance Monkey", "Tones and I"));
-        recommendListItems.add(new RecommendListItem("11.", "Falling", "Harry Styles"));
-        recommendListItems.add(new RecommendListItem("12.", "Perfect", "Ed Sheeran"));
-        recommendListItems.add(new RecommendListItem("13.", "2002", "Anne-Marie"));
-        recommendListItems.add(new RecommendListItem("14.", "What a Man Gotta Do", "Jonas Brothers"));
-        recommendListItems.add(new RecommendListItem("15.", "Not About Angels", "Birdy"));
-        recommendListItems.add(new RecommendListItem("16.", "Hold My Girl", "George Ezra"));
-        recommendListItems.add(new RecommendListItem("17.", "Lonely", "Noah Cyrus"));
-        recommendListItems.add(new RecommendListItem("18.", "Naked", "James Arthur"));
-        recommendListItems.add(new RecommendListItem("19.", "Love Me Like You Do", "Ellie Goulding"));
-        recommendListItems.add(new RecommendListItem("20.", "Dance Monkey", "Tones and I"));
+        recommendListItems.add(new RecommendListItem("1."));
+        recommendListItems.add(new RecommendListItem("2."));
+        recommendListItems.add(new RecommendListItem("3."));
+        recommendListItems.add(new RecommendListItem("4."));
+        recommendListItems.add(new RecommendListItem("5."));
+        recommendListItems.add(new RecommendListItem("6."));
+        recommendListItems.add(new RecommendListItem("7."));
+        recommendListItems.add(new RecommendListItem("8."));
+        recommendListItems.add(new RecommendListItem("9."));
+        recommendListItems.add(new RecommendListItem("10."));
+        recommendListItems.add(new RecommendListItem("11."));
+        recommendListItems.add(new RecommendListItem("12."));
+        recommendListItems.add(new RecommendListItem("13."));
+        recommendListItems.add(new RecommendListItem("14."));
+        recommendListItems.add(new RecommendListItem("15."));
+        recommendListItems.add(new RecommendListItem("16."));
+        recommendListItems.add(new RecommendListItem("17."));
+        recommendListItems.add(new RecommendListItem("18."));
+        recommendListItems.add(new RecommendListItem("19."));
+        recommendListItems.add(new RecommendListItem("20."));
 
         // initialise the RecyclerView
         recommendRecyclerView = findViewById(R.id.rv_recommended_songs);
         // recommendRecyclerView will not change in size
         recommendRecyclerView.setHasFixedSize(true);
-        // assign LayoutManager
+        // set the LayoutManager
         recommendLayoutManager = new LinearLayoutManager(this);
-        // assign Adapter and pass in the array list of recommendations
+        // create a  Adapter and pass in the array list of recommendations
         recommendAdapter = new RecommendAdapter(recommendListItems);
 
         // pass the LayoutManager to the RecyclerView

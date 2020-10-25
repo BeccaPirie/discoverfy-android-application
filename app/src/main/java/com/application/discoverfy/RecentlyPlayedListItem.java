@@ -7,16 +7,12 @@ import android.os.Bundle;
 // class for custom object which contains the users recently played songs
 public class RecentlyPlayedListItem extends AppCompatActivity {
 
-    // variables used to store the list item number, song title and artist name
+    // variables used to store the list item number
     private String listNumber;
-    private String songTitle;
-    private String artistName;
 
     // constructor for the list item
-    public RecentlyPlayedListItem(String listNumber, String songTitle, String artistName) {
+    public RecentlyPlayedListItem(String listNumber) {
         this.listNumber = listNumber;
-        this.songTitle = songTitle;
-        this.artistName = artistName;
     }
 
     // get the list item number
@@ -24,16 +20,7 @@ public class RecentlyPlayedListItem extends AppCompatActivity {
         return listNumber;
     }
 
-    // get the song title
-    public String getSongTitle() {
-        return songTitle;
-    }
-
-    // get the artist name
-    public String getArtistName() {
-        return artistName;
-    }
-/*
+    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

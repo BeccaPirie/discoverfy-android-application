@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
     }
 
+    // check the result
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -56,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
             switch (response.getType()) {
                 // response contains token and was successful
                 case TOKEN:
-                    // successful response
+                    // successful response, close the Activity and open RecentlyPlayedActivity
                     Intent intent1 = new Intent(LoginActivity.this,
                             RecentlyPlayedActivity.class);
                     intent1.putExtra(AUTH_TOKEN, response.getAccessToken());
