@@ -3,15 +3,19 @@ package com.application.discoverfy;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class ActionActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private static final String tag = "Discoverfy";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(tag, "is in onCreate" );
         setContentView(R.layout.activity_action);
 
         // variables to store the song title, the artist name and the album name
@@ -50,5 +54,35 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
         if(v.getId() == R.id.btn_add_to_favourites) {
             // set the current song as the users favourite
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(tag, "is in onResume");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(tag, "is in onStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(tag, "is in onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(tag, "is in onDestroy");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(tag, "is in onPause");
     }
 }

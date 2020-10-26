@@ -2,6 +2,7 @@ package com.application.discoverfy;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,8 @@ import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final String tag = "Discoverfy";
+
     private static final String CLIENT_ID = "842e1e18c0c14f29b0c1f6b2f3160497";
     private static final int REQUEST_CODE = 1337;
     private static final String REDIRECT_URI = "com.example.discoverfy://callback";
@@ -22,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(tag, "is in onCreate" );
         setContentView(R.layout.activity_login);
 
         // if login button is pressed, allow the user to log in to Spotify
@@ -80,5 +84,36 @@ public class LoginActivity extends AppCompatActivity {
     // close activity
     public void destroy(){
         LoginActivity.this.finish();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(tag, "is in onResume");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(tag, "is in onStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(tag, "is in onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(tag, "is in onDestroy");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(tag, "is in onPause");
     }
 }

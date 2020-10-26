@@ -5,11 +5,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class RecommendActivity extends AppCompatActivity {
+
+    private static final String tag = "Discoverfy";
 
     // variables that will store the RecyclerView, the Adapter and the LayoutManager
     private RecyclerView recommendRecyclerView;
@@ -19,6 +22,7 @@ public class RecommendActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(tag, "is in onCreate" );
         setContentView(R.layout.activity_recommend);
 
         // get the TextView that displays the song title in the heading and set text to the selected song
@@ -61,5 +65,35 @@ public class RecommendActivity extends AppCompatActivity {
         recommendRecyclerView.setLayoutManager(recommendLayoutManager);
         // pass the Adapter to the RecyclerView
         recommendRecyclerView.setAdapter(recommendAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(tag, "is in onResume");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(tag, "is in onStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(tag, "is in onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(tag, "is in onDestroy");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(tag, "is in onPause");
     }
 }
