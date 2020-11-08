@@ -17,7 +17,13 @@ import java.util.ArrayList;
 public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.RecommendViewHolder> {
 
     // variable to store the array list of items
-    private ArrayList<RecommendListItem> recommend;
+    private static ArrayList<RecommendListItem> recommend;
+
+    // extras for displaying song details in ActionActivity
+    public static final String EXTRA_SONG_TITLE = "com.application.discoverfy.SONG_TITLE";
+    public static final String EXTRA_ARTIST = "com.application.discoverfy.SONG_ARTIST";
+    public static final String EXTRA_ALBUM = "com.application.discoverfy.SONG_ALBUM";
+
 
     // ViewHolder
     public static class RecommendViewHolder extends RecyclerView.ViewHolder {
@@ -38,10 +44,15 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
             textView6 = itemView.findViewById(R.id.tv_r_artist);
             button2 = itemView.findViewById(R.id.btn_options);
 
-            // open RecommendActivity when item clicked
+            // open ActionActivity when item clicked to display selected song details
             button2.setOnClickListener((View v) -> {
-                final Intent intent = new Intent(context, ActionActivity.class);
-                context.startActivity(intent);
+                int position = getAdapterPosition();
+                RecommendListItem current = recommend.get(position);
+                final Intent displaySelected = new Intent(context, ActionActivity.class);
+                displaySelected.putExtra(EXTRA_SONG_TITLE, current.getListNumberRecommend()); // CHANGE TO SONG TITLE
+                displaySelected.putExtra(EXTRA_ARTIST, current.getListNumberRecommend()); // CHANGE TO ARTIST NAME
+                displaySelected.putExtra(EXTRA_ALBUM, current.getListNumberRecommend()); // CHANGE TO ALBUM NAME
+                context.startActivity(displaySelected);
             });
         }
     }

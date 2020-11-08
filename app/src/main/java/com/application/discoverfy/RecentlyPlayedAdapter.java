@@ -17,7 +17,10 @@ import java.util.ArrayList;
 public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAdapter.RecentlyPlayedViewHolder> {
 
     // variable to store the array list of items
-    private ArrayList<RecentlyPlayedListItem> recentlyPlayed;
+    private static ArrayList<RecentlyPlayedListItem> recentlyPlayed;
+
+    // extra for displaying song title in RecommendActivity
+    public static final String EXTRA_SONG = "com.application.discoverfy.SONG";
 
     // ViewHolder
     public static class RecentlyPlayedViewHolder extends RecyclerView.ViewHolder {
@@ -38,10 +41,13 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
             textViewThree = itemView.findViewById(R.id.tv_rp_artist);
             buttonOne = itemView.findViewById(R.id.btn_discover);
 
-            // open RecommendActivity when item clicked
+            // open RecommendActivity when item clicked and put the selected song title in the heading
             buttonOne.setOnClickListener((View v) -> {
-                final Intent intent = new Intent(context, RecommendActivity.class);
-                context.startActivity(intent);
+                int position = getAdapterPosition();
+                RecentlyPlayedListItem current = recentlyPlayed.get(position);
+                final Intent recommend = new Intent(context, RecommendActivity.class);
+                recommend.putExtra(EXTRA_SONG, current.getListNumber()); // CHANGE TO SONG TITLE
+                context.startActivity(recommend);
             });
         }
     }
@@ -76,4 +82,5 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
     public int getItemCount() {
         return recentlyPlayed.size();
     }
+
 }

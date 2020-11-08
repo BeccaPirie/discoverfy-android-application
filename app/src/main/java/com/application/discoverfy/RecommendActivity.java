@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import static com.application.discoverfy.RecentlyPlayedAdapter.EXTRA_SONG;
 
 public class RecommendActivity extends AppCompatActivity {
 
@@ -26,7 +29,10 @@ public class RecommendActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recommend);
 
         // get the TextView that displays the song title in the heading and set text to the selected song
+        Intent recommend = getIntent();
+        String song = recommend.getStringExtra(EXTRA_SONG);
         TextView songTitle = (TextView) findViewById(R.id.tv_song_title_recommend);
+        songTitle.setText(song);
 
         // create an array list to store the items in the RecyclerView
         // DATA WILL BE DOWNLOADED FROM WEB SERVICE

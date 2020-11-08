@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                             RecentlyPlayedActivity.class);
                     intent1.putExtra(AUTH_TOKEN, response.getAccessToken());
                     startActivity(intent1);
-                    destroy();
+                    //destroy();
                     break;
 
                 // error returned
@@ -80,11 +80,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-
+    /*
     // close activity
     public void destroy(){
         LoginActivity.this.finish();
     }
+
+     */
 
 
     @Override
