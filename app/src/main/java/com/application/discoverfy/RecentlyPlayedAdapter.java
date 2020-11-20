@@ -47,6 +47,9 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
                 RecentlyPlayedListItem current = recentlyPlayed.get(position);
                 final Intent recommend = new Intent(context, RecommendActivity.class);
                 recommend.putExtra(EXTRA_SONG, current.getListNumber()); // CHANGE TO SONG TITLE
+                //recommend.putExtra(EXTRA_SONG, current.getListNumber()); // ARTIST NAME
+                //recommend.putExtra(EXTRA_SONG, current.getListNumber()); // ALBUM NAME?
+
                 context.startActivity(recommend);
             });
         }
@@ -74,6 +77,8 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
 
         // get the data from the current item in the array list and pass it to the View
         holder.textViewOne.setText(current.getListNumber());
+        // holder.textViewTwo.setText(current. --------()); // song title
+        // holder.textViewThree.setText(current. ------()); // artist name
 
     }
 

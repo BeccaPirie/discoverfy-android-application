@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Discoverfy</string>
     <string name="btn_login">Login to Spotify</string>
-    <string name="btn_save_to_library">Save</string>
-    <string name="btn_add_to_favourites">Add as Favourite</string>
+    <string name="btn_share_recommendation">Share Recommendation</string>
+    <string name="btn_add_to_favourites">Add To Favourites</string>
     <string name="tv_song_title">%1$s</string>
     <string name="tv_artist_name">%1$s</string>
     <string name="tv_album_name">%1$s</string>
@@ -14,9 +14,11 @@
     <string name="tv_r_song_title">%1$s</string>
     <string name="tv_r_artist">%1$s</string>
     <string name="btn_options">Options</string>
-    <string name="btn_view_favourite">Favourite</string>
-    <string name="btn_listen_on_spotify">Listen on Spotify</string>
+    <string name="btn_view_favourite">Favourites</string>
+    <string name="btn_listen_on_youtube">Listen on Youtube</string>
     <string name="tv_song_title_recommend">%1$s</string>
-    <string name="tv_recommendatons_title">Recommendations Based On</string>
+    <string name="tv_recommendations_title">Recommendations Based On</string>
     <string name="tv_recent_title">Recently Played</string>
+    <string name="message">Check out %1$s by %2$s</string>
+    <string name="youTube">%1$s %2$s</string>
 </resources>

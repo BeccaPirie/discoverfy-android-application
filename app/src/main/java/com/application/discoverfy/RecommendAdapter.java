@@ -79,6 +79,8 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
 
         // call the get method to display the information from the current item in the array list
         holder.textView4.setText(current.getListNumberRecommend());
+        //holder.textView5.setText(current.-----()); // song title
+        //holder.textView6.setText(current.-----()); // artist name
     }
 
     // return the number of items in the array list
