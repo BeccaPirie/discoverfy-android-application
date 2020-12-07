@@ -1,13 +1,13 @@
 package com.application.discoverfy;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class RecommendActivity extends AppCompatActivity {
         // get the TextView that displays the song title in the heading and set text to the selected song
         Intent recommend = getIntent();
         String song = recommend.getStringExtra(EXTRA_SONG);
-        TextView songTitle = (TextView) findViewById(R.id.tv_song_title_recommend);
+        TextView songTitle = findViewById(R.id.tv_song_title_recommend);
         songTitle.setText(song);
 
         // create an array list to store the items in the RecyclerView

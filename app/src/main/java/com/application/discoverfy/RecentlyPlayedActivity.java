@@ -1,18 +1,22 @@
 package com.application.discoverfy;
 
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+import com.application.discoverfy.Connectors.RecentSongsService;
+import com.application.discoverfy.Models.RecentSongs;
 
 import java.util.ArrayList;
 
-public class RecentlyPlayedActivity extends AppCompatActivity implements View.OnClickListener{
+import static com.application.discoverfy.LoginActivity.SPOTIFY;
+
+public class RecentlyPlayedActivity extends AppCompatActivity {
 
     private static final String tag = "Discoverfy";
 
@@ -20,6 +24,10 @@ public class RecentlyPlayedActivity extends AppCompatActivity implements View.On
     private RecyclerView recentRecyclerView;
     private RecentlyPlayedAdapter recentAdapter;
     private RecyclerView.LayoutManager recentLayoutManager;
+    private RecentSongs song;
+
+    private RecentSongsService recentSongService;
+    private ArrayList<RecentSongs> recentlyPlayedSongs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +35,16 @@ public class RecentlyPlayedActivity extends AppCompatActivity implements View.On
         Log.d(tag, "is in onCreate" );
         setContentView(R.layout.activity_recently_played);
 
+        TextView displayUsername = findViewById(R.id.tv_username);
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences(SPOTIFY, 0);
+        displayUsername.setText(sharedPreferences.getString("user_id", "no user"));
+
         // create an array list to store the items in the RecyclerView
         // DATA WILL BE DOWNLOADED FROM WEB SERVICE
+        
+        //recentlyPlayedSongs = new ArrayList<RecentSongs>();
+
         ArrayList<RecentlyPlayedListItem> recentlyPlayedListItems = new ArrayList<>();
         recentlyPlayedListItems.add(new RecentlyPlayedListItem("1."));
         recentlyPlayedListItems.add(new RecentlyPlayedListItem("2."));
@@ -54,27 +70,24 @@ public class RecentlyPlayedActivity extends AppCompatActivity implements View.On
 
         // initialise the RecyclerView
         recentRecyclerView = findViewById(R.id.rv_recently_played);
+
         // recommendRecyclerView will not change in size
         recentRecyclerView.setHasFixedSize(true);
-        // set the LayoutManager
-        recentLayoutManager = new LinearLayoutManager(this);
+
         // create a new Adapter and pass in the array list of recently played songs
         recentAdapter = new RecentlyPlayedAdapter(recentlyPlayedListItems);
+        //recentAdapter = new RecentlyPlayedAdapter(    , getApplicationContext());
 
+        // set the LayoutManager
+        recentLayoutManager = new LinearLayoutManager(this);
+
+        // recentLayoutManager = new LinearLayoutManager(getApplicationContext());
         // pass the LayoutManager to the RecyclerView
         recentRecyclerView.setLayoutManager(recentLayoutManager);
+
         // pass the Adapter to the RecyclerView
         recentRecyclerView.setAdapter(recentAdapter);
 
-        // button to view Favourite recommendation
-        Button viewFavourite = findViewById(R.id.btn_view_favourite);
-        viewFavourite.setOnClickListener(this);
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        // will open the ActionActivity and display the information of the favourite song
     }
 
     @Override

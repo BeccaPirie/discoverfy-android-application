@@ -35,10 +35,12 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
         Intent displaySelected = getIntent();
 
         // set song title
+        // getName() from RecentSongsService
         songName = displaySelected.getStringExtra(EXTRA_SONG_TITLE);
         songTitle.setText(songName);
 
         // set artist name
+        //
         artist = displaySelected.getStringExtra(EXTRA_ARTIST);
         artistName.setText(artist);
 
@@ -53,18 +55,20 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
         // button to share the recommendation by SMS
         Button btnSave = findViewById(R.id.btn_share_recommendation);
         btnSave.setOnClickListener(this);
-
-        // button to add the song to favourites
-        Button btnFavourite = findViewById(R.id.btn_add_to_favourites);
-        btnFavourite.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btn_listen_on_youtube) {
             // redirect the user to YouTube and search for the recommendation
-            listenOnYoutube();
+            String youTubeSearch = getString(R.string.youTube, songName, artist);
+
+            Uri baseUri = Uri.parse("https://www.youtube.com/results");
+            Uri.Builder builder = baseUri.buildUpon();
+            builder.appendQueryParameter("search_query", youTubeSearch);
+            Uri dataUri = builder.build();
+
+            listenOnYoutube(dataUri);
         }
 
         if(v.getId() == R.id.btn_share_recommendation) {
@@ -73,9 +77,18 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
             shareRecommendation(message);
         }
 
-        if(v.getId() == R.id.btn_add_to_favourites) {
-            // save the recommendation to favourites
+        if(v.getId() == R.id.btn_back_to_rp) {
+            Intent back = new Intent(ActionActivity.this, RecentlyPlayedActivity.class);
+            startActivity(back);
+        }
 
+    }
+
+    private void listenOnYoutube(Uri dataUri) {
+        Intent youTube = new Intent(Intent.ACTION_VIEW);
+        youTube.setData(dataUri);
+        if(youTube.resolveActivity(getPackageManager()) != null) {
+            startActivity(youTube);
         }
     }
 
@@ -85,20 +98,6 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
         share.putExtra("sms_body", message);
         if(share.resolveActivity(getPackageManager()) != null) {
             startActivity(share);
-        }
-    }
-
-    private void listenOnYoutube() {
-        Intent youTube = new Intent(Intent.ACTION_VIEW);
-
-        Uri baseUri = Uri.parse("https://www.youtube.com/results");
-        Uri.Builder builder = baseUri.buildUpon();
-        builder.appendQueryParameter("search_query", getString(R.string.youTube, songName, artist));
-        Uri dataUri = builder.build();
-        youTube.setData(dataUri);
-
-        if(youTube.resolveActivity(getPackageManager()) != null) {
-            startActivity(youTube);
         }
     }
 
