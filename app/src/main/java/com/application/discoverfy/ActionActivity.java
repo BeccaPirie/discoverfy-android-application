@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import static com.application.discoverfy.RecommendAdapter.EXTRA_ALBUM;
 import static com.application.discoverfy.RecommendAdapter.EXTRA_ARTIST;
 import static com.application.discoverfy.RecommendAdapter.EXTRA_SONG_TITLE;
 
@@ -29,7 +28,6 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
         // variables to store the song title, the artist name and the album name
         TextView songTitle = findViewById(R.id.tv_song_title);
         TextView artistName = findViewById(R.id.tv_artist_name);
-        TextView albumName = findViewById(R.id.tv_album_name);
 
         // DATA WILL BE DOWNLOADED FROM WEB SERVICE
         Intent displaySelected = getIntent();
@@ -43,10 +41,6 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
         //
         artist = displaySelected.getStringExtra(EXTRA_ARTIST);
         artistName.setText(artist);
-
-        // set album name
-        String album = displaySelected.getStringExtra(EXTRA_ALBUM);
-        albumName.setText(album);
 
         // button to search the song on YouTube
         Button btnListen = findViewById(R.id.btn_listen_on_youtube);
@@ -75,11 +69,6 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
             // share the recommendation as a text message
             String message = getString(R.string.message, songName, artist);
             shareRecommendation(message);
-        }
-
-        if(v.getId() == R.id.btn_back_to_rp) {
-            Intent back = new Intent(ActionActivity.this, RecentlyPlayedActivity.class);
-            startActivity(back);
         }
 
     }

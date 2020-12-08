@@ -49,9 +49,9 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
                 int position = getAdapterPosition();
                 RecommendListItem current = recommend.get(position);
                 final Intent displaySelected = new Intent(context, ActionActivity.class);
-                displaySelected.putExtra(EXTRA_SONG_TITLE, current.getListNumberRecommend()); // CHANGE TO SONG TITLE
-                displaySelected.putExtra(EXTRA_ARTIST, current.getListNumberRecommend()); // CHANGE TO ARTIST NAME
-                displaySelected.putExtra(EXTRA_ALBUM, current.getListNumberRecommend()); // CHANGE TO ALBUM NAME
+                displaySelected.putExtra(EXTRA_SONG_TITLE, current.getSongNameRecommend()); // CHANGE TO SONG TITLE
+                displaySelected.putExtra(EXTRA_ARTIST, current.getArtistNameRecommend()); // CHANGE TO ARTIST NAME
+                //displaySelected.putExtra(EXTRA_ALBUM, current.getListNumberRecommend()); // CHANGE TO ALBUM NAME
                 context.startActivity(displaySelected);
             });
         }
@@ -79,8 +79,8 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
 
         // call the get method to display the information from the current item in the array list
         holder.textView4.setText(current.getListNumberRecommend());
-        //holder.textView5.setText(current.-----()); // song title
-        //holder.textView6.setText(current.-----()); // artist name
+        holder.textView5.setText(current.getSongNameRecommend()); // song title
+        holder.textView6.setText(current.getArtistNameRecommend()); // artist name
     }
 
     // return the number of items in the array list

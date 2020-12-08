@@ -32,17 +32,9 @@
         android:id="@+id/btn_search"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="36dp"
         android:text="@string/btn_search"
         app:layout_constraintEnd_toEndOf="@+id/tv_search_for_artist"
-        app:layout_constraintTop_toBottomOf="@+id/et_search_artist" />
-
-    <Button
-        android:id="@+id/btn_settings2"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/btn_settings"
         app:layout_constraintStart_toStartOf="@+id/tv_search_for_artist"
         app:layout_constraintTop_toBottomOf="@+id/et_search_artist" />
 

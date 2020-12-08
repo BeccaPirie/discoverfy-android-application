@@ -2,6 +2,7 @@ package com.application.discoverfy;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +18,6 @@ public class TestActivity extends AppCompatActivity {
 
     TextView displayUser;
     TextView recentlyPlayedSong;
-    private RecentSongs recentSong;
     private RecentSongsService recentSongsService;
     private ArrayList<RecentSongs> recentlyPlayedSongs;
 
@@ -38,9 +38,11 @@ public class TestActivity extends AppCompatActivity {
 
     }
 
+
     private void getTracks() {
         recentSongsService.getRecentlyPlayedSongs(() -> {
             recentlyPlayedSongs = recentSongsService.getSongs();
+            Log.d("TEST", String.valueOf(recentlyPlayedSongs));
             updateSong();
         });
     }
@@ -48,7 +50,7 @@ public class TestActivity extends AppCompatActivity {
     private void updateSong() {
         if (recentlyPlayedSongs.size() > 0) {
             recentlyPlayedSong.setText(recentlyPlayedSongs.get(0).getName());
-            recentSong = recentlyPlayedSongs.get(0);
+            RecentSongs recentSong = recentlyPlayedSongs.get(0);
         }
     }
 

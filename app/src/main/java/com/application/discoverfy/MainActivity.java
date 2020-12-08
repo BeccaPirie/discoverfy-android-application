@@ -28,10 +28,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button search = findViewById(R.id.btn_search);
         search.setOnClickListener(this);
 
-        // settings button
-        Button settings = findViewById(R.id.btn_settings2);
-        settings.setOnClickListener(this);
-
         // display the users Spotify name
         TextView displayUser = findViewById(R.id.textView);
 
@@ -52,12 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent search = new Intent(MainActivity.this, ResultsActivity.class);
             search.putExtra(EXTRA_USER_INPUT, getInput);
             startActivity(search);
-
-
-        } if (v.getId() == R.id.btn_settings2) {
-            // open the setting activity
-            Intent settings = new Intent(MainActivity.this, SettingsActivity.class);
-            startActivity(settings);
         }
     }
 }

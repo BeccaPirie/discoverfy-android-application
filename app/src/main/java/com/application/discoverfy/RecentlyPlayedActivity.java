@@ -43,29 +43,29 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         // create an array list to store the items in the RecyclerView
         // DATA WILL BE DOWNLOADED FROM WEB SERVICE
         
-        //recentlyPlayedSongs = new ArrayList<RecentSongs>();
+        // recentlyPlayedSongs = new ArrayList<RecentSongs>();
 
         ArrayList<RecentlyPlayedListItem> recentlyPlayedListItems = new ArrayList<>();
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("1."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("2."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("3."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("4."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("5."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("6."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("7."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("8."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("9."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("10."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("11."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("12."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("13."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("14."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("15."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("16."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("17."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("18."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("19."));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("20."));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("1.", "Wonder", "Shawn Mendes"));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("2.", "No Time To Die", "Billie Eilish"));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("3.", "What A Man Gotta Do", "Jonas Brothers"));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("4.", "Black And White", "Niall Horan"));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("5.", "Before You Go", "Lewis Capaldi"));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("6.", "Falling", "Harry Styles"));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("7.", "Wings", "Birdy"));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("8.", "Ghosts", "BANNERS"));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("9.", "Crash My Car", "COIN"));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("10.", "Angel", "FINNEAS"));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("11.", "", ""));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("12.", "", ""));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("13.", "", ""));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("14.", "", ""));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("15.", "", ""));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("16.", "", ""));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("17.", "", ""));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("18.", "", ""));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("19.", "", ""));
+        recentlyPlayedListItems.add(new RecentlyPlayedListItem("20.", "", ""));
 
 
         // initialise the RecyclerView

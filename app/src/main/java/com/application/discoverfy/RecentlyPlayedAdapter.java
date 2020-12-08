@@ -18,6 +18,7 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
 
     // variable to store the array list of items
     private static ArrayList<RecentlyPlayedListItem> recentlyPlayed;
+    //private static ArrayList<RecentSongs> recentSongs;
 
     // extra for displaying song title in RecommendActivity
     public static final String EXTRA_SONG = "com.application.discoverfy.SONG";
@@ -45,11 +46,11 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
             buttonOne.setOnClickListener((View v) -> {
                 int position = getAdapterPosition();
                 RecentlyPlayedListItem current = recentlyPlayed.get(position);
+                //RecentSongs current = recentSongs.get(position);
                 final Intent recommend = new Intent(context, RecommendActivity.class);
-                recommend.putExtra(EXTRA_SONG, current.getListNumber()); // CHANGE TO SONG TITLE
-                //recommend.putExtra(EXTRA_SONG, current.getListNumber()); // ARTIST NAME
-                //recommend.putExtra(EXTRA_SONG, current.getListNumber()); // ALBUM NAME?
-
+                recommend.putExtra(EXTRA_SONG, current.getSongName());
+                //recommend.putExtra(EXTRA_SONG, current.getName());
+                //recommend.putExtra(EXTRA_SONG, current.getArtists());
                 context.startActivity(recommend);
             });
         }
@@ -74,11 +75,12 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
     public void onBindViewHolder(@NonNull RecentlyPlayedViewHolder holder, int position) {
         // get the current item in the list
         RecentlyPlayedListItem current = recentlyPlayed.get(position);
+        //RecentSongs current2 = recentSongs.get(position);
 
         // get the data from the current item in the array list and pass it to the View
         holder.textViewOne.setText(current.getListNumber());
-        // holder.textViewTwo.setText(current. --------()); // song title
-        // holder.textViewThree.setText(current. ------()); // artist name
+        holder.textViewTwo.setText(current.getSongName());
+        holder.textViewThree.setText(current.getArtistName());
 
     }
 

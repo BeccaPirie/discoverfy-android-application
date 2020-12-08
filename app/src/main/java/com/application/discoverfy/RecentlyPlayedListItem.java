@@ -2,23 +2,34 @@ package com.application.discoverfy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-
 // class for custom object which contains the users recently played songs
 public class RecentlyPlayedListItem extends AppCompatActivity {
 
     // variables used to store the list item number
     private String listNumber;
+    private String songName;
+    private String artistName;
 
     // constructor for the list item
-    public RecentlyPlayedListItem(String listNumber) {
+    public RecentlyPlayedListItem(String listNumber, String songName, String artistName) {
         this.listNumber = listNumber;
+        this.songName = songName;
+        this.artistName = artistName;
     }
 
     // get the list item number
     public String getListNumber() {
         return listNumber;
     }
+
+    public String getSongName() {
+        return songName;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
 
     /*
     @Override

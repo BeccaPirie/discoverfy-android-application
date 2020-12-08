@@ -37,26 +37,26 @@ public class RecommendActivity extends AppCompatActivity {
         // create an array list to store the items in the RecyclerView
         // DATA WILL BE DOWNLOADED FROM WEB SERVICE
         ArrayList<RecommendListItem> recommendListItems = new ArrayList<>();
-        recommendListItems.add(new RecommendListItem("1."));
-        recommendListItems.add(new RecommendListItem("2."));
-        recommendListItems.add(new RecommendListItem("3."));
-        recommendListItems.add(new RecommendListItem("4."));
-        recommendListItems.add(new RecommendListItem("5."));
-        recommendListItems.add(new RecommendListItem("6."));
-        recommendListItems.add(new RecommendListItem("7."));
-        recommendListItems.add(new RecommendListItem("8."));
-        recommendListItems.add(new RecommendListItem("9."));
-        recommendListItems.add(new RecommendListItem("10."));
-        recommendListItems.add(new RecommendListItem("11."));
-        recommendListItems.add(new RecommendListItem("12."));
-        recommendListItems.add(new RecommendListItem("13."));
-        recommendListItems.add(new RecommendListItem("14."));
-        recommendListItems.add(new RecommendListItem("15."));
-        recommendListItems.add(new RecommendListItem("16."));
-        recommendListItems.add(new RecommendListItem("17."));
-        recommendListItems.add(new RecommendListItem("18."));
-        recommendListItems.add(new RecommendListItem("19."));
-        recommendListItems.add(new RecommendListItem("20."));
+        recommendListItems.add(new RecommendListItem("1.", "Careless", "Ella Eyre"));
+        recommendListItems.add(new RecommendListItem("2.", "Someone You Loved", "Lewis Capaldi"));
+        recommendListItems.add(new RecommendListItem("3.", "Castle on the Hill", "Ed Sheeran"));
+        recommendListItems.add(new RecommendListItem("4.", "Midnight Sky", "Miley Cyrus"));
+        recommendListItems.add(new RecommendListItem("5.", "Save Myself", "Ashe"));
+        recommendListItems.add(new RecommendListItem("6.", "All I Want", "Kodaline"));
+        recommendListItems.add(new RecommendListItem("7.", "Dream", "Shawn Mendes"));
+        recommendListItems.add(new RecommendListItem("8.", "All You're Dreaming Of", "Liam Gallagher"));
+        recommendListItems.add(new RecommendListItem("9.", "Lonely", "Noah Cyrus"));
+        recommendListItems.add(new RecommendListItem("10.", "hopeless", "Clinton Kane"));
+        recommendListItems.add(new RecommendListItem("11.", "", ""));
+        recommendListItems.add(new RecommendListItem("12.", "", ""));
+        recommendListItems.add(new RecommendListItem("13.", "", ""));
+        recommendListItems.add(new RecommendListItem("14.", "", ""));
+        recommendListItems.add(new RecommendListItem("15.", "", ""));
+        recommendListItems.add(new RecommendListItem("16.", "", ""));
+        recommendListItems.add(new RecommendListItem("17.", "", ""));
+        recommendListItems.add(new RecommendListItem("18.", "", ""));
+        recommendListItems.add(new RecommendListItem("19.", "", ""));
+        recommendListItems.add(new RecommendListItem("20.", "", ""));
 
         // initialise the RecyclerView
         recommendRecyclerView = findViewById(R.id.rv_recommended_songs);

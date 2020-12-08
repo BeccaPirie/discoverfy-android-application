@@ -37,13 +37,14 @@ public class RecentSongsService {
     }
 
     public ArrayList<RecentSongs> getSongs() {
+        Log.d("TEST", "get songs");
         return recentSongs;
     }
 
     public ArrayList<RecentSongs> getRecentlyPlayedSongs(final VolleyCallBack callBack) {
         Log.d("TEST", "getRecentlyPlayedSongs()");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, response -> {
-                    Gson gson = new Gson();
+                 Gson gson = new Gson();
                     JSONArray jsonArray = response.optJSONArray("items");
                     for (int n = 0; n < jsonArray.length(); n++) {
                         try {
@@ -58,8 +59,7 @@ public class RecentSongsService {
                     }
                     callBack.onSuccess();
                 }, error -> {
-                    // TODO: Handle error
-
+                    Log.d("TEST", "error");
                 }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {

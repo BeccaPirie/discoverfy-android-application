@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void imageVisibilitySettings() {
         // image
         ImageView image = findViewById(R.id.iv_legend);
-
         // set the image visibility depending on what is stored in shared preferences
         sharedPreferences2 = getSharedPreferences(getString(R.string.shared_pref_file), MODE_PRIVATE);
         String preference = sharedPreferences2.getString(getString(R.string.prefer_image_choice), getString(R.string.shared_pref_image_default));

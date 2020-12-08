@@ -6,10 +6,9 @@ public class RecentSongs {
     private String name;
     private String artists;
 
-    public RecentSongs(String id, String name, String artists) {
+    public RecentSongs(String id, String name) {
         this.id = id;
         this.name = name;
-        this.artists = artists;
     }
 
     public String getId() {
@@ -31,4 +30,6 @@ public class RecentSongs {
     public String getArtists() { return artists;};
 
     public void setArtists(String artists) { this.artists = artists; }
+
+
 }
