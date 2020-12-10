@@ -42,11 +42,11 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
             textViewThree = itemView.findViewById(R.id.tv_rp_artist);
             buttonOne = itemView.findViewById(R.id.btn_discover);
 
-            // open RecommendActivity when item clicked and put the selected song title in the heading
+            // open RecommendActivity when item clicked and pass the data from that item to the activity
             buttonOne.setOnClickListener((View v) -> {
                 int position = getAdapterPosition();
                 RecentlyPlayedListItem current = recentlyPlayed.get(position);
-                //RecentSongs current = recentSongs.get(position);
+                // RecentSongs current = recentSongs.get(position);
                 final Intent recommend = new Intent(context, RecommendActivity.class);
                 recommend.putExtra(EXTRA_SONG, current.getSongName());
                 //recommend.putExtra(EXTRA_SONG, current.getName());
@@ -61,7 +61,7 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
         recentlyPlayed = recentlyPlayedListItems;
     }
 
-    // pass the layout of list item to the adapter
+    // pass the layout of the list item to the adapter
     @NonNull
     @Override
     public RecentlyPlayedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -75,7 +75,7 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
     public void onBindViewHolder(@NonNull RecentlyPlayedViewHolder holder, int position) {
         // get the current item in the list
         RecentlyPlayedListItem current = recentlyPlayed.get(position);
-        //RecentSongs current2 = recentSongs.get(position);
+        //RecentSongs current = recentSongs.get(position);
 
         // get the data from the current item in the array list and pass it to the View
         holder.textViewOne.setText(current.getListNumber());

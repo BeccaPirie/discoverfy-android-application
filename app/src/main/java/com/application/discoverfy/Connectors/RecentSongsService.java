@@ -30,26 +30,31 @@ public class RecentSongsService {
     private SharedPreferences sharedPreferences;
     private RequestQueue requestQueue;
 
+    // constructor class
     public RecentSongsService(Context context) {
         sharedPreferences = context.getSharedPreferences(SPOTIFY, 0);
         requestQueue = Volley.newRequestQueue(context);
 
     }
 
+    // get the list of songs
     public ArrayList<RecentSongs> getSongs() {
         Log.d("TEST", "get songs");
         return recentSongs;
     }
 
+    // generate request
     public ArrayList<RecentSongs> getRecentlyPlayedSongs(final VolleyCallBack callBack) {
         Log.d("TEST", "getRecentlyPlayedSongs()");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, response -> {
-                 Gson gson = new Gson();
+            // parse result with Gson
+            Gson gson = new Gson();
                     JSONArray jsonArray = response.optJSONArray("items");
                     for (int n = 0; n < jsonArray.length(); n++) {
                         try {
                             JSONObject object = jsonArray.getJSONObject(n);
                             object = object.optJSONObject("track");
+                            // add result to object
                             RecentSongs recentSong = gson.fromJson(object.toString(), RecentSongs.class);
                             recentSongs.add(recentSong);
                             Log.d("TEST", String.valueOf(recentSongs));

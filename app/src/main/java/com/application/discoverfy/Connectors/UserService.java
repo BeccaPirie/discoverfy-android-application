@@ -21,18 +21,23 @@ public class UserService {
     private RequestQueue queue;
     private User user;
 
+    // constructor class
     public UserService(RequestQueue queue, SharedPreferences sharedPreferences) {
         this.queue = queue;
         this.sharedPreferences = sharedPreferences;
     }
 
+    // get user
     public User getUser() {
         return user;
     }
 
+    // generate request
     public void get(final VolleyCallBack callBack) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(ENDPOINT, null, response -> {
+            // parse results with Gson
             Gson gson = new Gson();
+            // add result to user object
             user = gson.fromJson(response.toString(), User.class);
             callBack.onSuccess();
         }, error -> get(() -> {

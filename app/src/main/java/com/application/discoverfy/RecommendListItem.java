@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 // class for custom object which contains the recommendations
 public class RecommendListItem extends AppCompatActivity {
 
-    // variables used to store the list item number
+    // variables used to store the list item number, song name and artist name
     private String listNumberRecommend;
     private String songNameRecommend;
     private String artistNameRecommend;
@@ -22,10 +22,12 @@ public class RecommendListItem extends AppCompatActivity {
         return listNumberRecommend;
     }
 
+    // get the song name
     public String getSongNameRecommend()  {
         return songNameRecommend;
     }
 
+    // get the artists name
     public String getArtistNameRecommend() {
         return artistNameRecommend;
     }

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 // class for custom object which contains the users recently played songs
 public class RecentlyPlayedListItem extends AppCompatActivity {
 
-    // variables used to store the list item number
+    // variables used to store the list item number, song name and artist name
     private String listNumber;
     private String songName;
     private String artistName;
@@ -22,10 +22,12 @@ public class RecentlyPlayedListItem extends AppCompatActivity {
         return listNumber;
     }
 
+    // get the song name
     public String getSongName() {
         return songName;
     }
 
+    // get the artists name
     public String getArtistName() {
         return artistName;
     }

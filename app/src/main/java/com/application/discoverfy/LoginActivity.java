@@ -78,19 +78,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         UserService userService = new UserService(requestQueue, sharedPreferences);
 
         userService.get(() -> {
-            // returns User
+            // get user
             User user = userService.getUser();
 
             // save the user id in shared preferences
             editor = getSharedPreferences(SPOTIFY, 0).edit();
             editor.putString("user_id", user.id);
-            Log.d("TEST", "GOT USER INFORMATION " + user.id);
             editor.commit();
 
             // close the Activity and open RecentlyPlayedActivity
             Intent intent1 = new Intent(LoginActivity.this,
                     RecentlyPlayedActivity.class);
-            //intent1.putExtra(AUTH_TOKEN, response.getAccessToken());
             startActivity(intent1);
         });
     }
@@ -167,7 +165,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
      */
 
-
+    // on resume
     @Override
     protected void onResume() {
         super.onResume();
@@ -175,24 +173,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         imageVisibilitySettings();
     }
 
+    // on start
     @Override
     protected void onStart() {
         super.onStart();
         Log.d(tag, "is in onStart");
     }
 
+    // on stop
     @Override
     protected void onStop() {
         super.onStop();
         Log.d(tag, "is in onStop");
     }
 
+    // on destroy
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.d(tag, "is in onDestroy");
     }
 
+    // on pause
     @Override
     protected void onPause() {
         super.onPause();

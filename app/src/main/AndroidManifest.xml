@@ -30,7 +30,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Discoverfy">
         <activity android:name=".TestActivity"></activity>
-        <activity android:name=".ResultsActivity" />
         <activity android:name=".SettingsActivity" />
         <activity
             android:name=".ActionActivity"
@@ -51,7 +50,6 @@
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>
