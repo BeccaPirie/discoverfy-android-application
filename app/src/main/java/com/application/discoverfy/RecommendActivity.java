@@ -90,6 +90,41 @@ public class RecommendActivity extends AppCompatActivity {
         recommendRecyclerView.setAdapter(recommendAdapter);
     }
 
+            /*
+        private void downloadRecommendations() {
+
+        private final static String ENDPOINT = "";
+
+             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, new Response.Listener<JSONObject>() {
+             @Override
+             public void onResponse(JSONObject response) {
+             RecommendationsService service = new RecommendationsService();
+             List<Recommendations> recommendations = service.processSongs(response,
+             if(songs()>0) {
+             recentAdapter.setRecommendations();
+             recentAdapter.notifyDataSetChanged();
+             } else {
+             Toast.makeText(getApplicationContext(), getString(R.string....), Toast.LENGTH_LONG).show();
+             }
+             }
+             } new Response.ErrorListener() {
+             @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), getString(R.string....), Toast.LENGTH_LONG).show();
+                        Log.d(TAG, error.getLocalizedMessage());
+                    }
+                });
+                // check internet connection
+                RequestQueue.queue = Volley.newRequestQueue(getApplicationContext());
+                queue.add(request);
+                }
+
+
+        }
+
+         */
+
+
     // on save instance state method
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {

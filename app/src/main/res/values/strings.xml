@@ -4,6 +4,8 @@
     <string name="shared_pref_image_default" translatable="false">shared_pref_image_default</string>
     <string name="shared_pref_image_null" translatable="false">shared_pref_image_null</string>
 
+    <string name="error_message">Failed to download songs</string>
+
     <string name="app_name">Discoverfy</string>
     <string name="btn_login">Login to Spotify</string>
     <string name="btn_share_recommendation">Share Recommendation</string>

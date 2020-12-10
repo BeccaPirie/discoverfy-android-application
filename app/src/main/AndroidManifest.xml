@@ -29,7 +29,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Discoverfy">
-        <activity android:name=".TestActivity"></activity>
         <activity android:name=".SettingsActivity" />
         <activity
             android:name=".ActionActivity"

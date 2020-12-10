@@ -7,32 +7,24 @@
     tools:context=".RecentlyPlayedListItem">
 
     <TextView
-        android:id="@+id/tv_rp_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/tv_rp_number"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="1." />
-
-    <TextView
         android:id="@+id/tv_rp_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/tv_rp_title"
-        app:layout_constraintStart_toEndOf="@+id/tv_rp_number"
-        app:layout_constraintTop_toTopOf="@+id/tv_rp_number"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Someone You Loved" />
 
     <TextView
         android:id="@+id/tv_rp_artist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/tv_rp_artist"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_rp_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_rp_title"
         tools:text="Lewis Capaldi" />
@@ -41,10 +33,10 @@
         android:id="@+id/btn_discover"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/btn_discover"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_rp_artist"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_rp_title" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

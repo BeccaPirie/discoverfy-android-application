@@ -17,8 +17,8 @@ import java.util.ArrayList;
 public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAdapter.RecentlyPlayedViewHolder> {
 
     // variable to store the array list of items
-    private static ArrayList<RecentlyPlayedListItem> recentlyPlayed;
-    //private static ArrayList<RecentSongs> recentSongs;
+    private static ArrayList<RecentlyPlayedListItem> recentSongs;
+    //private static List<RecentSongs> recentSongs;
 
     // extra for displaying song title in RecommendActivity
     public static final String EXTRA_SONG = "com.application.discoverfy.SONG";
@@ -30,14 +30,17 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
         public TextView textViewTwo;
         public TextView textViewThree;
         public Button buttonOne;
+        // private RecentlyPlayedAdapter adapter;
+        // private View itemView;
 
         // constructor class
-        public RecentlyPlayedViewHolder(@NonNull View itemView) {
+        public RecentlyPlayedViewHolder(@NonNull View itemView, RecentlyPlayedAdapter adapter) {
             super(itemView);
             context = itemView.getContext();
+            // this.itemView = itemView;
+            // this.adapter = adapter;
 
             // assign TextViews and button
-            textViewOne = itemView.findViewById(R.id.tv_rp_number);
             textViewTwo = itemView.findViewById(R.id.tv_rp_title);
             textViewThree = itemView.findViewById(R.id.tv_rp_artist);
             buttonOne = itemView.findViewById(R.id.btn_discover);
@@ -45,7 +48,7 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
             // open RecommendActivity when item clicked and pass the data from that item to the activity
             buttonOne.setOnClickListener((View v) -> {
                 int position = getAdapterPosition();
-                RecentlyPlayedListItem current = recentlyPlayed.get(position);
+                RecentlyPlayedListItem current = recentSongs.get(position);
                 // RecentSongs current = recentSongs.get(position);
                 final Intent recommend = new Intent(context, RecommendActivity.class);
                 recommend.putExtra(EXTRA_SONG, current.getSongName());
@@ -57,8 +60,8 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
     }
 
     // put the data from the array list into the adapter
-    public RecentlyPlayedAdapter(ArrayList<RecentlyPlayedListItem> recentlyPlayedListItems) {
-        recentlyPlayed = recentlyPlayedListItems;
+    public RecentlyPlayedAdapter(ArrayList<RecentlyPlayedListItem> recentSongs) {
+        this.recentSongs = recentSongs;
     }
 
     // pass the layout of the list item to the adapter
@@ -66,7 +69,7 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
     @Override
     public RecentlyPlayedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_recently_played_list_item, parent, false);
-        RecentlyPlayedViewHolder rpViewHolder = new RecentlyPlayedViewHolder(view);
+        RecentlyPlayedViewHolder rpViewHolder = new RecentlyPlayedViewHolder(view, this);
         return rpViewHolder;
     }
 
@@ -74,11 +77,10 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
     @Override
     public void onBindViewHolder(@NonNull RecentlyPlayedViewHolder holder, int position) {
         // get the current item in the list
-        RecentlyPlayedListItem current = recentlyPlayed.get(position);
-        //RecentSongs current = recentSongs.get(position);
+        // RecentSongs current = recentSongs.get(position);
+        RecentlyPlayedListItem current = recentSongs.get(position);
 
         // get the data from the current item in the array list and pass it to the View
-        holder.textViewOne.setText(current.getListNumber());
         holder.textViewTwo.setText(current.getSongName());
         holder.textViewThree.setText(current.getArtistName());
 
@@ -87,7 +89,13 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
     // return the number of items in the array list
     @Override
     public int getItemCount() {
-        return recentlyPlayed.size();
+        return recentSongs.size();
     }
 
+    /*
+    public void setRecentSongs(List<RecentSongs> songs) {
+        this.recentSongs = (ArrayList<RecentSongs>) songs;
+    }
+
+     */
 }
