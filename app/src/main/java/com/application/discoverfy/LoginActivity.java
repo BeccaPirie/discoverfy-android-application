@@ -21,21 +21,23 @@ import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private static final String tag = "Discoverfy";
+    // tag
+    private static final String tag = "LoginActivity";
 
+    // editor
     private SharedPreferences.Editor editor;
+    // shared preferences
     private SharedPreferences sharedPreferences;
 
-    private SharedPreferences sharedPreferences2;
-
+    // request queue
     private RequestQueue requestQueue;
 
+    // variables required for API
     private static final String CLIENT_ID = "842e1e18c0c14f29b0c1f6b2f3160497";
     private static final int REQUEST_CODE = 1337;
     private static final String REDIRECT_URI = "com.example.discoverfy://callback";
     private static final String SCOPES = "user-read-recently-played,user-library-modify,user-read-email,user-read-private";
     public static final String AUTH_TOKEN = "AUTH_TOKEN";
-    public static final String SPOTIFY = "SPOTIFY"; // put as string resource for best practice
 
     // onCreate method
     @Override
@@ -45,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         // shared preferences
-        sharedPreferences = this.getSharedPreferences(SPOTIFY, 0);
+        sharedPreferences = this.getSharedPreferences(getString(R.string.spotify), 0);
         requestQueue = Volley.newRequestQueue(this);
 
         // login button
@@ -56,6 +58,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Button settings = findViewById(R.id.btn_settings);
         settings.setOnClickListener(this);
 
+        // image settings method
         imageVisibilitySettings();
     }
 
@@ -64,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // image
         ImageView image = findViewById(R.id.iv_legend);
         // set the image visibility depending on what is stored in shared preferences
-        sharedPreferences2 = getSharedPreferences(getString(R.string.shared_pref_file), MODE_PRIVATE);
+        SharedPreferences sharedPreferences2 = getSharedPreferences(getString(R.string.shared_pref_file), MODE_PRIVATE);
         String preference = sharedPreferences2.getString(getString(R.string.prefer_image_choice), getString(R.string.shared_pref_image_default));
         if(preference.equals(getString(R.string.shared_pref_image_default))) {
             image.setVisibility(View.VISIBLE);
@@ -77,12 +80,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void waitForUserInfo() {
         UserService userService = new UserService(requestQueue, sharedPreferences);
 
+        // get user
         userService.get(() -> {
-            // get user
             User user = userService.getUser();
 
             // save the user id in shared preferences
-            editor = getSharedPreferences(SPOTIFY, 0).edit();
+            editor = getSharedPreferences(getString(R.string.spotify), 0).edit();
             editor.putString("user_id", user.id);
             editor.commit();
 
@@ -119,10 +122,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 case TOKEN:
                     // successful response
                     // save the authentication token in Shared Preferences
-                    editor = getSharedPreferences(SPOTIFY, 0).edit();
+                    editor = getSharedPreferences(getString(R.string.spotify), 0).edit();
                     editor.putString(AUTH_TOKEN, response.getAccessToken());
                     editor.apply();
-                    Log.d("TEST", "access token " + response.getAccessToken());
                     waitForUserInfo();
                     //destroy();
                     break;

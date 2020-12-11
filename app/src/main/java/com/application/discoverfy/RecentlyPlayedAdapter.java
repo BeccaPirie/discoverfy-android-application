@@ -2,6 +2,7 @@ package com.application.discoverfy;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 // class for the Adapter for the RecentlyPlayedActivity RecyclerView
 public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAdapter.RecentlyPlayedViewHolder> {
 
@@ -20,56 +23,66 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
     private static ArrayList<RecentlyPlayedListItem> recentSongs;
     //private static List<RecentSongs> recentSongs;
 
-    // extra for displaying song title in RecommendActivity
-    public static final String EXTRA_SONG = "com.application.discoverfy.SONG";
-
     // ViewHolder
-    public static class RecentlyPlayedViewHolder extends RecyclerView.ViewHolder {
+    public static class RecentlyPlayedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final Context context;
-        public TextView textViewOne;
         public TextView textViewTwo;
         public TextView textViewThree;
         public Button buttonOne;
-        // private RecentlyPlayedAdapter adapter;
-        // private View itemView;
+        private SharedPreferences.Editor editor;
 
         // constructor class
-        public RecentlyPlayedViewHolder(@NonNull View itemView, RecentlyPlayedAdapter adapter) {
+        public RecentlyPlayedViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
-            // this.itemView = itemView;
-            // this.adapter = adapter;
 
             // assign TextViews and button
             textViewTwo = itemView.findViewById(R.id.tv_rp_title);
             textViewThree = itemView.findViewById(R.id.tv_rp_artist);
             buttonOne = itemView.findViewById(R.id.btn_discover);
 
-            // open RecommendActivity when item clicked and pass the data from that item to the activity
-            buttonOne.setOnClickListener((View v) -> {
-                int position = getAdapterPosition();
-                RecentlyPlayedListItem current = recentSongs.get(position);
-                // RecentSongs current = recentSongs.get(position);
-                final Intent recommend = new Intent(context, RecommendActivity.class);
-                recommend.putExtra(EXTRA_SONG, current.getSongName());
-                //recommend.putExtra(EXTRA_SONG, current.getName());
-                //recommend.putExtra(EXTRA_SONG, current.getArtists());
-                context.startActivity(recommend);
-            });
+            // set on click listener for the button
+            buttonOne.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            // get adapter position
+            int position = getAdapterPosition();
+            RecentlyPlayedListItem current = recentSongs.get(position);
+            // RecentSongs current = recentSongs.get(position);
+
+            // save id and name to shared preferences
+            editor = context.getSharedPreferences("TEST", MODE_PRIVATE).edit();
+            editor.putString("recent_song", current.getSongName());
+            //editor.putString("recent_id", current.getId());
+            //editor.putString("recent_song", current.getName());
+            editor.apply();
+
+            // open RecommendActivity
+            final Intent recommend = new Intent(context, RecommendActivity.class);
+            context.startActivity(recommend);
         }
     }
 
     // put the data from the array list into the adapter
     public RecentlyPlayedAdapter(ArrayList<RecentlyPlayedListItem> recentSongs) {
-        this.recentSongs = recentSongs;
+        RecentlyPlayedAdapter.recentSongs = recentSongs;
     }
+
+    /*
+    public RecentlyPlayedAdapter(List<RecentSongs> recentSongs) {
+        RecentlyPlayedAdapter.recentSongs = recentSongs;
+    }
+
+     */
 
     // pass the layout of the list item to the adapter
     @NonNull
     @Override
     public RecentlyPlayedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_recently_played_list_item, parent, false);
-        RecentlyPlayedViewHolder rpViewHolder = new RecentlyPlayedViewHolder(view, this);
+        RecentlyPlayedViewHolder rpViewHolder = new RecentlyPlayedViewHolder(view);
         return rpViewHolder;
     }
 
@@ -83,6 +96,8 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
         // get the data from the current item in the array list and pass it to the View
         holder.textViewTwo.setText(current.getSongName());
         holder.textViewThree.setText(current.getArtistName());
+        // holder.textViewTwo.setText(current.getName());
+        // holder.textViewThree.setText(current.getArtists());
 
     }
 
@@ -94,7 +109,7 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
 
     /*
     public void setRecentSongs(List<RecentSongs> songs) {
-        this.recentSongs = (ArrayList<RecentSongs>) songs;
+        this.recentSongs = (List<RecentSongs>) songs;
     }
 
      */

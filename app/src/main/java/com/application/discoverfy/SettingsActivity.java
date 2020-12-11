@@ -2,12 +2,16 @@ package com.application.discoverfy;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingsActivity extends AppCompatActivity {
+
+    // tag
+    private static final String tag = "SettingsActivity";
 
     // shared preferences for settings
     private SharedPreferences sharedPreferences2;
@@ -16,6 +20,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(tag, "is on create");
         setContentView(R.layout.activity_settings);
 
         // shared preferences
@@ -38,6 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d(tag, "is on pause");
         // get radio group
         RadioGroup radioGroup = findViewById(R.id.rg_image);
         // String to hold the visibility choice

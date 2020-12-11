@@ -16,7 +16,7 @@ import static com.application.discoverfy.RecommendAdapter.EXTRA_SONG_TITLE;
 public class ActionActivity extends AppCompatActivity implements View.OnClickListener{
 
     // tag
-    private static final String tag = "Discoverfy";
+    private static final String tag = "ActionActivity";
 
     // variables for the song name and artist
     private String songName;

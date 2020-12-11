@@ -1,33 +1,42 @@
 package com.application.discoverfy;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.application.discoverfy.Connectors.RecommendationsService;
+import com.application.discoverfy.Models.Recommendations;
 
-import static com.application.discoverfy.RecentlyPlayedAdapter.EXTRA_SONG;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RecommendActivity extends AppCompatActivity {
 
     // tag
-    private static final String tag = "Discoverfy";
+    private static final String tag = "RecommendActivity";
 
     // key for current song name
     private static final String SONG = "SongName";
     // value for current song name
     private String songName;
 
-    // variables that will store the RecyclerView, the Adapter and the LayoutManager
-    private RecyclerView recommendRecyclerView;
-    private RecyclerView.Adapter recommendAdapter;
-    private RecyclerView.LayoutManager recommendLayoutManager;
+    // adapter
+    private RecommendAdapter recommendAdapter;
 
     // on create method
     @Override
@@ -45,85 +54,105 @@ public class RecommendActivity extends AppCompatActivity {
             songTitle.setText(songName);
         }
 
-        // get the TextView that displays the song title in the heading and set text to the selected song
-        Intent recommend = getIntent();
-        String song = recommend.getStringExtra(EXTRA_SONG);
-        songTitle.setText(song);
-
+        // put selected song in title
+        SharedPreferences sharedPreferences = this.getSharedPreferences("TEST", MODE_PRIVATE);
+        songTitle.setText(sharedPreferences.getString("recent_song", "no song"));
 
         // create an array list to store the items in the RecyclerView
-        // DATA WILL BE DOWNLOADED FROM WEB SERVICE
         ArrayList<RecommendListItem> recommendListItems = new ArrayList<>();
-        recommendListItems.add(new RecommendListItem("1.", "Careless", "Ella Eyre"));
-        recommendListItems.add(new RecommendListItem("2.", "Someone You Loved", "Lewis Capaldi"));
-        recommendListItems.add(new RecommendListItem("3.", "Castle on the Hill", "Ed Sheeran"));
-        recommendListItems.add(new RecommendListItem("4.", "Midnight Sky", "Miley Cyrus"));
-        recommendListItems.add(new RecommendListItem("5.", "Save Myself", "Ashe"));
-        recommendListItems.add(new RecommendListItem("6.", "All I Want", "Kodaline"));
-        recommendListItems.add(new RecommendListItem("7.", "Dream", "Shawn Mendes"));
-        recommendListItems.add(new RecommendListItem("8.", "All You're Dreaming Of", "Liam Gallagher"));
-        recommendListItems.add(new RecommendListItem("9.", "Lonely", "Noah Cyrus"));
-        recommendListItems.add(new RecommendListItem("10.", "hopeless", "Clinton Kane"));
-        recommendListItems.add(new RecommendListItem("11.", "Electric Love", "BORNS"));
-        recommendListItems.add(new RecommendListItem("12.", "Green Light", "Lorde"));
-        recommendListItems.add(new RecommendListItem("13.", "Blinding Lights", "The Weeknd"));
-        recommendListItems.add(new RecommendListItem("14.", "Golden", "Harry Styles"));
-        recommendListItems.add(new RecommendListItem("15.", "heart", "flor"));
-        recommendListItems.add(new RecommendListItem("16.", "Take Me Back Home", "Coasts"));
-        recommendListItems.add(new RecommendListItem("17.", "superstars", "Christian French"));
-        recommendListItems.add(new RecommendListItem("18.", "come out and play", "Billie Eilish"));
-        recommendListItems.add(new RecommendListItem("19.", "Waves", "Dean Lewis"));
-        recommendListItems.add(new RecommendListItem("20.", "Youngblood", "5 Seconds of Summer"));
+        recommendListItems.add(new RecommendListItem("Careless", "Ella Eyre"));
+        recommendListItems.add(new RecommendListItem("Someone You Loved", "Lewis Capaldi"));
+        recommendListItems.add(new RecommendListItem("Castle on the Hill", "Ed Sheeran"));
+        recommendListItems.add(new RecommendListItem("Midnight Sky", "Miley Cyrus"));
+        recommendListItems.add(new RecommendListItem("Save Myself", "Ashe"));
+        recommendListItems.add(new RecommendListItem("All I Want", "Kodaline"));
+        recommendListItems.add(new RecommendListItem("Dream", "Shawn Mendes"));
+        recommendListItems.add(new RecommendListItem("All You're Dreaming Of", "Liam Gallagher"));
+        recommendListItems.add(new RecommendListItem("Lonely", "Noah Cyrus"));
+        recommendListItems.add(new RecommendListItem("hopeless", "Clinton Kane"));
+        recommendListItems.add(new RecommendListItem("Electric Love", "BORNS"));
+        recommendListItems.add(new RecommendListItem("Green Light", "Lorde"));
+        recommendListItems.add(new RecommendListItem("Blinding Lights", "The Weeknd"));
+        recommendListItems.add(new RecommendListItem( "Golden", "Harry Styles"));
+        recommendListItems.add(new RecommendListItem("heart", "flor"));
+        recommendListItems.add(new RecommendListItem("Take Me Back Home", "Coasts"));
+        recommendListItems.add(new RecommendListItem("superstars", "Christian French"));
+        recommendListItems.add(new RecommendListItem("come out and play", "Billie Eilish"));
+        recommendListItems.add(new RecommendListItem("Waves", "Dean Lewis"));
+        recommendListItems.add(new RecommendListItem("Youngblood", "5 Seconds of Summer"));
 
         // initialise the RecyclerView
-        recommendRecyclerView = findViewById(R.id.rv_recommended_songs);
+        RecyclerView recommendRecyclerView = findViewById(R.id.rv_recommended_songs);
+
         // recommendRecyclerView will not change in size
         recommendRecyclerView.setHasFixedSize(true);
+
         // set the LayoutManager
-        recommendLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager recommendLayoutManager = new LinearLayoutManager(this);
+
         // create a  Adapter and pass in the array list of recommendations
         recommendAdapter = new RecommendAdapter(recommendListItems);
 
         // pass the LayoutManager to the RecyclerView
         recommendRecyclerView.setLayoutManager(recommendLayoutManager);
+
         // pass the Adapter to the RecyclerView
         recommendRecyclerView.setAdapter(recommendAdapter);
+
+        /*
+         ***** API *****
+        List<Recommendations> songRecommendations = new ArrayList<Recommendations>();
+        RecyclerView recommendRecyclerView = findViewById(R.id.rv_recommended_songs);
+        recommendRecyclerView.setHasFixedSize(true);
+        recommendAdapter = new RecommendAdapter(songRecommendations);
+        recommendRecyclerView.setAdapter(recommendAdapter);
+        recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        downloadRecommendations();
+        */
     }
 
-            /*
-        private void downloadRecommendations() {
+    private void downloadRecommendations() {
+        // shared preferences
+        SharedPreferences sharedPreferences = getSharedPreferences("TEST", MODE_PRIVATE);
+        String id = sharedPreferences.getString("recent_id", "");
 
-        private final static String ENDPOINT = "";
+        // endpoint
+        Uri baseUri = Uri.parse("https://api.spotify.com/v1/recommendations");
+        Uri.Builder builder = baseUri.buildUpon();
+        builder.appendQueryParameter("seed_tracks", id);
+        Uri uri = builder.build();
+        String ENDPOINT = uri.toString();
 
-             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, new Response.Listener<JSONObject>() {
-             @Override
-             public void onResponse(JSONObject response) {
-             RecommendationsService service = new RecommendationsService();
-             List<Recommendations> recommendations = service.processSongs(response,
-             if(songs()>0) {
-             recentAdapter.setRecommendations();
-             recentAdapter.notifyDataSetChanged();
-             } else {
-             Toast.makeText(getApplicationContext(), getString(R.string....), Toast.LENGTH_LONG).show();
-             }
-             }
-             } new Response.ErrorListener() {
-             @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), getString(R.string....), Toast.LENGTH_LONG).show();
-                        Log.d(TAG, error.getLocalizedMessage());
-                    }
-                });
-                // check internet connection
-                RequestQueue.queue = Volley.newRequestQueue(getApplicationContext());
-                queue.add(request);
-                }
+        // new json object request
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, response -> {
+            RecommendationsService service = new RecommendationsService();
+            List<Recommendations> songs = service.processRecommendations(response);
+            if(songs.size()>0) {
+                //recommendAdapter.setRecommendations(songs);
+                recommendAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(getApplicationContext(), getString(R.string.error_message), Toast.LENGTH_LONG).show();
+            }
+        }, error -> {
+            Toast.makeText(getApplicationContext(), getString(R.string.error_message), Toast.LENGTH_LONG).show();
+            Log.d(tag, error.getLocalizedMessage());
+        }) {
+            // get headers method
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                // set bearer token as a header
+                Map<String, String> headers = new HashMap<>();
+                String token = sharedPreferences.getString("token", "");
+                String auth = "Bearer " + token;
+                headers.put("Authorization", auth);
+                return headers;
+            }
+        };
 
-
-        }
-
-         */
-
+        // build queue and make request
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        queue.add(jsonObjectRequest);
+    }
 
     // on save instance state method
     @Override

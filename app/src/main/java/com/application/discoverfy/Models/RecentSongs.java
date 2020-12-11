@@ -13,10 +13,12 @@ public class RecentSongs {
     private String artists;
 
     // constructor class
+    /*
     public RecentSongs(String id, String name) {
         this.id = id;
         this.name = name;
     }
+     */
 
     // get the database id
     public int getUid() {
@@ -40,7 +42,7 @@ public class RecentSongs {
 
     // set the song name
     public void setName(String name) {
-        this.id = name;
+        this.name = name;
     }
 
     // get the songs artists

@@ -1,7 +1,6 @@
 package com.application.discoverfy.Connectors;
 
 import com.application.discoverfy.Models.RecentSongs;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,9 +11,41 @@ import java.util.List;
 
 public class RecentSongsService {
 
+    // process songs method
     public List<RecentSongs> processSongs(JSONObject response) {
+        // list for songs
         List<RecentSongs> recentSongs = new ArrayList<RecentSongs>();
 
+        try {
+            // get items array
+            JSONArray itemsArray = response.getJSONArray("items");
+            for (int i = 0, j = itemsArray.length(); i<j; i++) {
+                // get every track object in the array
+                JSONObject trackObject = itemsArray.getJSONObject(i);
+                trackObject.getJSONObject("track");
+                // create new RecentSongs object and set id and name
+                RecentSongs songs = new RecentSongs();
+                songs.setId(trackObject.getString("id"));
+                songs.setName(trackObject.getString("name"));
+
+                // get artists array
+                JSONArray artistsArray = trackObject.getJSONArray("artists");
+                for (int k = 0, n = artistsArray.length(); k<n; k++) {
+                    // get artists objects from the array
+                    JSONObject artistObject = artistsArray.getJSONObject(k);
+                    // set artists
+                    songs.setArtists(artistObject.getString("name"));
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return recentSongs;
+    }
+}
+
+/*
+        // convert response
         // parse result with Gson
         Gson gson = new Gson();
         JSONArray jsonArray = response.optJSONArray("items");
@@ -31,7 +62,9 @@ public class RecentSongsService {
         }
         return recentSongs;
     }
-}
+
+
+}*/
 
     // *****REDUNDANT CODE*****
 /*

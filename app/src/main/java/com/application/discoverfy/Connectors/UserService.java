@@ -17,8 +17,8 @@ import static com.application.discoverfy.LoginActivity.AUTH_TOKEN;
 public class UserService {
 
     private static final String ENDPOINT = "https://api.spotify.com/v1/me";
-    private SharedPreferences sharedPreferences;
-    private RequestQueue queue;
+    private final SharedPreferences sharedPreferences;
+    private final RequestQueue queue;
     private User user;
 
     // constructor class

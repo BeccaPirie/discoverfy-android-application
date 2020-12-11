@@ -23,12 +23,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.application.discoverfy.LoginActivity.SPOTIFY;
-
 public class RecentlyPlayedActivity extends AppCompatActivity {
 
     // tag
-    private static final String tag = "Discoverfy";
+    private static final String tag = "RecentlyPlayedActivity";
 
     // adapter
     private RecentlyPlayedAdapter recentAdapter;
@@ -44,10 +42,10 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         TextView displayUsername = findViewById(R.id.tv_username);
 
         // get the user ID from shared preferences and display in the TextView
-        SharedPreferences sharedPreferences = this.getSharedPreferences(SPOTIFY, 0);
+        SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.spotify), 0);
         displayUsername.setText(sharedPreferences.getString("user_id", "no user"));
 
-        // placeholder data
+        // placeholder data as API not working correctly
         ArrayList<RecentlyPlayedListItem> recentlyPlayedListItems = new ArrayList<>();
         recentlyPlayedListItems.add(new RecentlyPlayedListItem("Wonder", "Shawn Mendes"));
         recentlyPlayedListItems.add(new RecentlyPlayedListItem("No Time To Die", "Billie Eilish"));
@@ -88,7 +86,7 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         // pass the LayoutManager to the RecyclerView
         recentRecyclerView.setLayoutManager(recentLayoutManager);
 
-        /* ***** API *****
+        /* ***** if using data from API *****
         List<RecentSongs> recentlyPlayedSongs = new ArrayList<RecentSongs>();
         RecyclerView recentRecyclerView = findViewById(R.id.rv_recently_played);
         recentRecyclerView.setHasFixedSize(true);
@@ -102,7 +100,7 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
 
     private void downloadRecentSongs() {
         String ENDPOINT = "https://api.spotify.com/v1/me/player/recently-played";
-        SharedPreferences sharedPreferences = getSharedPreferences(SPOTIFY, 0);
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.spotify), 0);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, response -> {
             RecentSongsService service = new RecentSongsService();
@@ -129,7 +127,6 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
             }
         };
 
-        // *****check internet connection*****
         // build queue and make request
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(jsonObjectRequest);
