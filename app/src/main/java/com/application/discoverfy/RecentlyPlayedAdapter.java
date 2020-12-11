@@ -26,10 +26,9 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
     // ViewHolder
     public static class RecentlyPlayedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final Context context;
-        public TextView textViewTwo;
-        public TextView textViewThree;
-        public Button buttonOne;
-        private SharedPreferences.Editor editor;
+        public TextView title;
+        public TextView artist;
+        public Button recommend;
 
         // constructor class
         public RecentlyPlayedViewHolder(@NonNull View itemView) {
@@ -37,14 +36,15 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
             context = itemView.getContext();
 
             // assign TextViews and button
-            textViewTwo = itemView.findViewById(R.id.tv_rp_title);
-            textViewThree = itemView.findViewById(R.id.tv_rp_artist);
-            buttonOne = itemView.findViewById(R.id.btn_discover);
+            title = itemView.findViewById(R.id.tv_rp_title);
+            artist = itemView.findViewById(R.id.tv_rp_artist);
+            recommend = itemView.findViewById(R.id.btn_discover);
 
             // set on click listener for the button
-            buttonOne.setOnClickListener(this);
+            recommend.setOnClickListener(this);
         }
 
+        // on click method
         @Override
         public void onClick(View v) {
             // get adapter position
@@ -53,10 +53,11 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
             // RecentSongs current = recentSongs.get(position);
 
             // save id and name to shared preferences
-            editor = context.getSharedPreferences("TEST", MODE_PRIVATE).edit();
+            SharedPreferences.Editor editor = context.getSharedPreferences(context.getString(R.string.shared_pref_file), MODE_PRIVATE).edit();
             editor.putString("recent_song", current.getSongName());
             //editor.putString("recent_id", current.getId());
             //editor.putString("recent_song", current.getName());
+            //editor.putString("recent_artists", current.getArtists());
             editor.apply();
 
             // open RecommendActivity
@@ -94,10 +95,10 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
         RecentlyPlayedListItem current = recentSongs.get(position);
 
         // get the data from the current item in the array list and pass it to the View
-        holder.textViewTwo.setText(current.getSongName());
-        holder.textViewThree.setText(current.getArtistName());
-        // holder.textViewTwo.setText(current.getName());
-        // holder.textViewThree.setText(current.getArtists());
+        holder.title.setText(current.getSongName());
+        holder.artist.setText(current.getArtistName());
+        // holder.title.setText(current.getName());
+        // holder.artist.setText(current.getArtists());
 
     }
 

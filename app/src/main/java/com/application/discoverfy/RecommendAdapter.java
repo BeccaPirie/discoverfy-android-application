@@ -25,12 +25,12 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
     public static final String EXTRA_ARTIST = "com.application.discoverfy.SONG_ARTIST";
 
     // ViewHolder
-    public static class RecommendViewHolder extends RecyclerView.ViewHolder {
+    public static class RecommendViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final Context context;
         // variables to store TextViews in the list item
-        public TextView textView5;
-        public TextView textView6;
-        public Button button2;
+        public TextView songTitle;
+        public TextView artist;
+        public Button options;
         // private RecommendAdapter adapter;
         // private View itemView;
 
@@ -39,22 +39,27 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
             super(itemView);
             context = itemView.getContext();
             // assign the Views
-            textView5 = itemView.findViewById(R.id.tv_r_song_title);
-            textView6 = itemView.findViewById(R.id.tv_r_artist);
-            button2 = itemView.findViewById(R.id.btn_options);
+            songTitle = itemView.findViewById(R.id.tv_r_song_title);
+            artist = itemView.findViewById(R.id.tv_r_artist);
+            options = itemView.findViewById(R.id.btn_options);
+            options.setOnClickListener(this);
+        }
 
-            // open ActionActivity when item clicked to display selected song details
-            button2.setOnClickListener((View v) -> {
-                int position = getAdapterPosition();
-                RecommendListItem current = recommend.get(position);
-                //Recommendation current = recommend.get(position);
-                final Intent displaySelected = new Intent(context, ActionActivity.class);
-                displaySelected.putExtra(EXTRA_SONG_TITLE, current.getSongNameRecommend());
-                displaySelected.putExtra(EXTRA_ARTIST, current.getArtistNameRecommend());
-                //displaySelected.putExtra(EXTRA_SONG_TITLE, current.)
-                //displaySelected.putExtra(EXTRA_ARTIST, current.)
-                context.startActivity(displaySelected);
-            });
+        // on click method
+        @Override
+        public void onClick(View v) {
+            // get adapter position
+            int position = getAdapterPosition();
+            RecommendListItem current = recommend.get(position);
+            //Recommendation current = recommend.get(position);
+
+            // put song title and artist as extras and start ActionActivity
+            final Intent displaySelected = new Intent(context, ActionActivity.class);
+            displaySelected.putExtra(EXTRA_SONG_TITLE, current.getSongNameRecommend());
+            displaySelected.putExtra(EXTRA_ARTIST, current.getArtistNameRecommend());
+            //displaySelected.putExtra(EXTRA_SONG_TITLE, current.getName());
+            //displaySelected.putExtra(EXTRA_ARTIST, current.getArtists());
+            context.startActivity(displaySelected);
         }
     }
 
@@ -80,10 +85,10 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         // Recommendations current = recommend.get(position);
 
         // call the get method to display the information from the current item in the array list
-        holder.textView5.setText(current.getSongNameRecommend());
-        holder.textView6.setText(current.getArtistNameRecommend());
-        // holder.textView5.setText(current.getName());
-        // holder.textView6.setText(current.getArtists());
+        holder.songTitle.setText(current.getSongNameRecommend());
+        holder.artist.setText(current.getArtistNameRecommend());
+        // holder.songTitle.setText(current.getName());
+        // holder.artist.setText(current.getArtists());
     }
 
     // return the number of items in the array list

@@ -55,7 +55,7 @@ public class RecommendActivity extends AppCompatActivity {
         }
 
         // put selected song in title
-        SharedPreferences sharedPreferences = this.getSharedPreferences("TEST", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.shared_pref_file), MODE_PRIVATE);
         songTitle.setText(sharedPreferences.getString("recent_song", "no song"));
 
         // create an array list to store the items in the RecyclerView
@@ -113,7 +113,7 @@ public class RecommendActivity extends AppCompatActivity {
 
     private void downloadRecommendations() {
         // shared preferences
-        SharedPreferences sharedPreferences = getSharedPreferences("TEST", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.shared_pref_file), MODE_PRIVATE);
         String id = sharedPreferences.getString("recent_id", "");
 
         // endpoint
