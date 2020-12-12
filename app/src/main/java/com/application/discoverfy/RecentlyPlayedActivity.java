@@ -1,6 +1,5 @@
 package com.application.discoverfy;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,8 +35,6 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
     // adapter
     private RecentlyPlayedAdapter recentAdapter;
 
-    private Context context;
-
     // on create method
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,59 +49,19 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.spotify), 0);
         displayUsername.setText(sharedPreferences.getString("user_id", "no user"));
 
-        /*
-        // placeholder data as API not working correctly
-        ArrayList<RecentlyPlayedListItem> recentlyPlayedListItems = new ArrayList<>();
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("Wonder", "Shawn Mendes"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("No Time To Die", "Billie Eilish"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("What A Man Gotta Do", "Jonas Brothers"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("Black And White", "Niall Horan"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem( "Before You Go", "Lewis Capaldi"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem( "Falling", "Harry Styles"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("Wings", "Birdy"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("Ghosts", "BANNERS"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("Crash My Car", "COIN"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("Angel", "FINNEAS"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("New Me", "Ella Eyre"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("The Joke", "Brandi Carlile"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("My Kind of Love", "Emeli Sande"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("feel something", "Bea Miller"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("Hard Sometimes", "Ruel"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("Fix You", "Coldplay"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("New Map", "M83"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("Stranger", "Vistas"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("Tongue Tied", "Grouplove"));
-        recentlyPlayedListItems.add(new RecentlyPlayedListItem("Teenage Blues", "Vistas"));
-
+        // create array list
+        List<RecentSongs> recentlyPlayedSongs = new ArrayList<RecentSongs>();
         // initialise the RecyclerView
         RecyclerView recentRecyclerView = findViewById(R.id.rv_recently_played);
-
-        // recommendRecyclerView will not change in size
+        // RecyclerView will not change in size
         recentRecyclerView.setHasFixedSize(true);
-
-        // create a new Adapter and pass in the array list of recently played songs
-        recentAdapter = new RecentlyPlayedAdapter(recentlyPlayedListItems);
-
-        // set the LayoutManager
-        RecyclerView.LayoutManager recentLayoutManager = new LinearLayoutManager(this);
-
-        // pass the Adapter to the RecyclerView
-        recentRecyclerView.setAdapter(recentAdapter);
-
-        // pass the LayoutManager to the RecyclerView
-        recentRecyclerView.setLayoutManager(recentLayoutManager);
-
-         */
-
-       // /* ***** if using data from API *****
-        List<RecentSongs> recentlyPlayedSongs = new ArrayList<RecentSongs>();
-        RecyclerView recentRecyclerView = findViewById(R.id.rv_recently_played);
-        recentRecyclerView.setHasFixedSize(true);
+        // create new adapter and pass it the list of recently played songs
         recentAdapter = new RecentlyPlayedAdapter(recentlyPlayedSongs);
+        // set the adapter
         recentRecyclerView.setAdapter(recentAdapter);
+        // set the layout manager
         recentRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         downloadRecentSongs();
-        // */
     }
 
     private void downloadRecentSongs() {
@@ -116,6 +73,7 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
             return;
         }
 
+        // build endpoint
         Uri baseUri = Uri.parse("https://api.spotify.com/v1/me/player/recently-played");
         Uri.Builder builder = baseUri.buildUpon();
         builder.appendQueryParameter("limit", "20");

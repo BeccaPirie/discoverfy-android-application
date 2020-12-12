@@ -22,7 +22,6 @@ import static android.content.Context.MODE_PRIVATE;
 public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAdapter.RecentlyPlayedViewHolder> {
 
     // variable to store the array list of items
-    //private static ArrayList<RecentlyPlayedListItem> recentSongs;
     private static List<RecentSongs> recentSongs;
 
     // ViewHolder
@@ -76,12 +75,10 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
 
      */
 
-    // /*
+    // put the data from the array list into the adapter
     public RecentlyPlayedAdapter(List<RecentSongs> recentSongs) {
         RecentlyPlayedAdapter.recentSongs = recentSongs;
     }
-
-    // */
 
     // pass the layout of the list item to the adapter
     @NonNull
@@ -96,12 +93,9 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
     @Override
     public void onBindViewHolder(@NonNull RecentlyPlayedViewHolder holder, int position) {
         // get the current item in the list
-        //RecentlyPlayedListItem current = recentSongs.get(position);
         RecentSongs current = recentSongs.get(position);
 
         // get the data from the current item in the array list and pass it to the View
-        //holder.title.setText(current.getSongName());
-        //holder.artist.setText(current.getArtistName());
         holder.title.setText(current.getName());
         holder.artist.setText(current.getArtists());
 
@@ -113,10 +107,7 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
         return recentSongs.size();
     }
 
-    ///*
     public void setRecentSongs(List<RecentSongs> songs) {
-        recentSongs = (List<RecentSongs>) songs;
+        recentSongs = songs;
     }
-
-     //*/
 }

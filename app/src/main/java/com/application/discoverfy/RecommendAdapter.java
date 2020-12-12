@@ -19,7 +19,6 @@ import java.util.List;
 public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.RecommendViewHolder> {
 
     // variable to store the array list of items
-    //private static ArrayList<RecommendListItem> recommend;
     private static List<Recommendations> recommend;
 
     // extras for displaying song details in ActionActivity
@@ -33,8 +32,6 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         public TextView songTitle;
         public TextView artist;
         public Button options;
-        // private RecommendAdapter adapter;
-        // private View itemView;
 
         // ViewHolder constructor class
         public RecommendViewHolder(@NonNull View itemView) {
@@ -52,13 +49,10 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         public void onClick(View v) {
             // get adapter position
             int position = getAdapterPosition();
-            //RecommendListItem current = recommend.get(position);
             Recommendations current = recommend.get(position);
 
             // put song title and artist as extras and start ActionActivity
             final Intent displaySelected = new Intent(context, ActionActivity.class);
-            //displaySelected.putExtra(EXTRA_SONG_TITLE, current.getSongNameRecommend());
-            //displaySelected.putExtra(EXTRA_ARTIST, current.getArtistNameRecommend());
             displaySelected.putExtra(EXTRA_SONG_TITLE, current.getName());
             displaySelected.putExtra(EXTRA_ARTIST, current.getArtists());
             context.startActivity(displaySelected);
@@ -83,12 +77,9 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
     @Override
     public void onBindViewHolder(@NonNull RecommendViewHolder holder, int position) {
         // get the current item in the list
-        //RecommendListItem current = recommend.get(position);
         Recommendations current = recommend.get(position);
 
         // call the get method to display the information from the current item in the array list
-        //holder.songTitle.setText(current.getSongNameRecommend());
-        //holder.artist.setText(current.getArtistNameRecommend());
         holder.songTitle.setText(current.getName());
         holder.artist.setText(current.getArtists());
     }
@@ -101,7 +92,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
 
 
     public void setRecommendations(List<Recommendations> songs) {
-        this.recommend = (List<Recommendations>) songs;
+        this.recommend = songs;
     }
 
 

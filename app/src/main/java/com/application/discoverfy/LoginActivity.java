@@ -36,9 +36,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // shared preferences
     private SharedPreferences sharedPreferences;
 
-    // request queue
-    private RequestQueue requestQueue;
-
     // variables required for API
     private static final String CLIENT_ID = "842e1e18c0c14f29b0c1f6b2f3160497";
     private static final int REQUEST_CODE = 1337;
@@ -55,7 +52,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // shared preferences
         sharedPreferences = this.getSharedPreferences(getString(R.string.spotify), 0);
-        requestQueue = Volley.newRequestQueue(this);
 
         // login button
         Button button = findViewById(R.id.btn_login);

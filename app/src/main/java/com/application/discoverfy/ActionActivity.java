@@ -33,7 +33,6 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
         TextView songTitle = findViewById(R.id.tv_song_title);
         TextView artistName = findViewById(R.id.tv_artist_name);
 
-        // DATA WILL BE DOWNLOADED FROM WEB SERVICE
         Intent displaySelected = getIntent();
 
         // set song title

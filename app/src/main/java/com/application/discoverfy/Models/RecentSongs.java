@@ -16,14 +16,6 @@ public class RecentSongs {
 
     private String artists;
 
-    // constructor class
-    /*
-    public RecentSongs(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-     */
-
     // get the database id
    /*public int getUid() {
         return uid;

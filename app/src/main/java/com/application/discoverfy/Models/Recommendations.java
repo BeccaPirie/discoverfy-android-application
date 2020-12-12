@@ -6,13 +6,6 @@ public class Recommendations {
     private String name;
     private String artists;
 
-    /*
-    public Recommendations (String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-     */
-
     // get id
     public String getId() {
         return id;

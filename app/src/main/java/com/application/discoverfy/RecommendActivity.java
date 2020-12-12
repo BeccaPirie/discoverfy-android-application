@@ -60,61 +60,19 @@ public class RecommendActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.shared_pref_file), MODE_PRIVATE);
         songTitle.setText(sharedPreferences.getString("recent_song", "no song"));
 
-        /*
-
-        // create an array list to store the items in the RecyclerView
-        ArrayList<RecommendListItem> recommendListItems = new ArrayList<>();
-        recommendListItems.add(new RecommendListItem("Careless", "Ella Eyre"));
-        recommendListItems.add(new RecommendListItem("Someone You Loved", "Lewis Capaldi"));
-        recommendListItems.add(new RecommendListItem("Castle on the Hill", "Ed Sheeran"));
-        recommendListItems.add(new RecommendListItem("Midnight Sky", "Miley Cyrus"));
-        recommendListItems.add(new RecommendListItem("Save Myself", "Ashe"));
-        recommendListItems.add(new RecommendListItem("All I Want", "Kodaline"));
-        recommendListItems.add(new RecommendListItem("Dream", "Shawn Mendes"));
-        recommendListItems.add(new RecommendListItem("All You're Dreaming Of", "Liam Gallagher"));
-        recommendListItems.add(new RecommendListItem("Lonely", "Noah Cyrus"));
-        recommendListItems.add(new RecommendListItem("hopeless", "Clinton Kane"));
-        recommendListItems.add(new RecommendListItem("Electric Love", "BORNS"));
-        recommendListItems.add(new RecommendListItem("Green Light", "Lorde"));
-        recommendListItems.add(new RecommendListItem("Blinding Lights", "The Weeknd"));
-        recommendListItems.add(new RecommendListItem( "Golden", "Harry Styles"));
-        recommendListItems.add(new RecommendListItem("heart", "flor"));
-        recommendListItems.add(new RecommendListItem("Take Me Back Home", "Coasts"));
-        recommendListItems.add(new RecommendListItem("superstars", "Christian French"));
-        recommendListItems.add(new RecommendListItem("come out and play", "Billie Eilish"));
-        recommendListItems.add(new RecommendListItem("Waves", "Dean Lewis"));
-        recommendListItems.add(new RecommendListItem("Youngblood", "5 Seconds of Summer"));
-
+        // create new array list
+        List<Recommendations> songRecommendations = new ArrayList<Recommendations>();
         // initialise the RecyclerView
         RecyclerView recommendRecyclerView = findViewById(R.id.rv_recommended_songs);
-
-        // recommendRecyclerView will not change in size
+        // set fixed size to true
         recommendRecyclerView.setHasFixedSize(true);
-
-        // set the LayoutManager
-        RecyclerView.LayoutManager recommendLayoutManager = new LinearLayoutManager(this);
-
-        // create a  Adapter and pass in the array list of recommendations
-        recommendAdapter = new RecommendAdapter(recommendListItems);
-
-        // pass the LayoutManager to the RecyclerView
-        recommendRecyclerView.setLayoutManager(recommendLayoutManager);
-
-        // pass the Adapter to the RecyclerView
-        recommendRecyclerView.setAdapter(recommendAdapter);
-
-         */
-
-
-         //***** API *****
-        List<Recommendations> songRecommendations = new ArrayList<Recommendations>();
-        RecyclerView recommendRecyclerView = findViewById(R.id.rv_recommended_songs);
-        recommendRecyclerView.setHasFixedSize(true);
+        // pass the adapter the list of recommendations
         recommendAdapter = new RecommendAdapter(songRecommendations);
+        // set the adapter
         recommendRecyclerView.setAdapter(recommendAdapter);
+        // set the layout manager
         recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         downloadRecommendations();
-
     }
 
     private void downloadRecommendations() {
