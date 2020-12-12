@@ -1,9 +1,13 @@
 package com.application.discoverfy.Models;
 
-//@Entity(tableName = "Recently_Played")
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "Recently_Played")
 public class RecentSongs {
-    //@NonNull
-    //@PrimaryKey(autoGenerate = true)
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
     private int uid;
 
     private String id;
@@ -23,6 +27,10 @@ public class RecentSongs {
     // get the database id
     public int getUid() {
         return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     // get the song id
@@ -51,5 +59,12 @@ public class RecentSongs {
     // set the songs artists
     public void setArtists(String artists) { this.artists = artists; }
 
-
+    @Override
+    public String toString() {
+        return "RecentSongs{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", artists='" + artists + '\'' +
+                '}';
+    }
 }

@@ -16,6 +16,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.application.discoverfy.Connectors.RecentSongsService;
+import com.application.discoverfy.Data.SongRepository;
 import com.application.discoverfy.Models.RecentSongs;
 
 import java.util.ArrayList;
@@ -99,13 +100,29 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
 
 
     private void downloadRecentSongs() {
+        // get songs from database
+        List<RecentSongs> cachedSongs = SongRepository.getRepository(getApplicationContext()).getAllSongs();
+        if (cachedSongs.size()>0) {
+            //recentAdapter.setRecentSongs(cachedSongs);
+            recentAdapter.notifyDataSetChanged();
+            return;
+        }
+
+        // endpoint
         String ENDPOINT = "https://api.spotify.com/v1/me/player/recently-played";
+        // shared preferences
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.spotify), 0);
 
+        // build volley request
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, response -> {
             RecentSongsService service = new RecentSongsService();
             List<RecentSongs> songs = service.processSongs(response);
+            // store, update and delete songs from the database
+            SongRepository.getRepository(getApplicationContext()).storeRecentSongs(songs);
+            SongRepository.getRepository(getApplicationContext()).updateRecentSongs(songs);
+            SongRepository.getRepository(getApplicationContext()).deleteRecentSongs(songs);
             if(songs.size()>0) {
+                // update the data in the adapter
                 //recentAdapter.setRecentSongs(songs);
                 recentAdapter.notifyDataSetChanged();
             } else {
