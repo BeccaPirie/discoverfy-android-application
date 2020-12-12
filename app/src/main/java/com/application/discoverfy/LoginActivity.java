@@ -7,16 +7,23 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.application.discoverfy.Connectors.UserService;
 import com.application.discoverfy.Models.User;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
@@ -36,7 +43,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final String CLIENT_ID = "842e1e18c0c14f29b0c1f6b2f3160497";
     private static final int REQUEST_CODE = 1337;
     private static final String REDIRECT_URI = "com.example.discoverfy://callback";
-    private static final String SCOPES = "user-read-recently-played,user-library-modify,user-read-email,user-read-private";
+    private static final String SCOPES = "user-read-recently-played, user-read-email, user-read-private";
     public static final String AUTH_TOKEN = "AUTH_TOKEN";
 
     // onCreate method
@@ -76,13 +83,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    // get the users information and save it in shared preferences
-    private void waitForUserInfo() {
-        UserService userService = new UserService(requestQueue, sharedPreferences);
+    // get the users id
+    private void downloadUserProfile() {
+        // endpoint
+        String ENDPOINT = "https://api.spotify.com/v1/me";
 
-        // get user
-        userService.get(() -> {
-            User user = userService.getUser();
+        // build volley request
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, response -> {
+            UserService service = new UserService();
+            User user = service.processUser(response);
+            Log.d("TEST", user.id);
 
             // save the user id in shared preferences
             editor = getSharedPreferences(getString(R.string.spotify), 0).edit();
@@ -93,7 +103,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Intent intent1 = new Intent(LoginActivity.this,
                     RecentlyPlayedActivity.class);
             startActivity(intent1);
-        });
+        }, error -> {
+            Toast.makeText(getApplicationContext(), getString(R.string.user_error), Toast.LENGTH_LONG).show();
+            Log.d(tag, error.getLocalizedMessage());
+        }) {
+            // get headers method
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                // set bearer token as a header
+                Map<String, String> headers = new HashMap<>();
+                String token = sharedPreferences.getString(AUTH_TOKEN, "");
+                String auth = "Bearer " + token;
+                headers.put("Authorization", auth);
+                return headers;
+            }
+        };
+
+        // build queue and make the request
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        queue.add(jsonObjectRequest);
     }
 
     // send a request to Spotify's authentication service and receive an authentication token to make calls to the API
@@ -125,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     editor = getSharedPreferences(getString(R.string.spotify), 0).edit();
                     editor.putString(AUTH_TOKEN, response.getAccessToken());
                     editor.apply();
-                    waitForUserInfo();
+                    downloadUserProfile();
                     //destroy();
                     break;
 

@@ -12,7 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.application.discoverfy.Models.RecentSongs;
+
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -20,8 +22,8 @@ import static android.content.Context.MODE_PRIVATE;
 public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAdapter.RecentlyPlayedViewHolder> {
 
     // variable to store the array list of items
-    private static ArrayList<RecentlyPlayedListItem> recentSongs;
-    //private static List<RecentSongs> recentSongs;
+    //private static ArrayList<RecentlyPlayedListItem> recentSongs;
+    private static List<RecentSongs> recentSongs;
 
     // ViewHolder
     public static class RecentlyPlayedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -49,15 +51,15 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
         public void onClick(View v) {
             // get adapter position
             int position = getAdapterPosition();
-            RecentlyPlayedListItem current = recentSongs.get(position);
-            // RecentSongs current = recentSongs.get(position);
+            //RecentlyPlayedListItem current = recentSongs.get(position);
+             RecentSongs current = recentSongs.get(position);
 
             // save id and name to shared preferences
             SharedPreferences.Editor editor = context.getSharedPreferences(context.getString(R.string.shared_pref_file), MODE_PRIVATE).edit();
-            editor.putString("recent_song", current.getSongName());
-            //editor.putString("recent_id", current.getId());
-            //editor.putString("recent_song", current.getName());
-            //editor.putString("recent_artists", current.getArtists());
+            //editor.putString("recent_song", current.getSongName());
+            editor.putString("recent_id", current.getId());
+            editor.putString("recent_song", current.getName());
+            editor.putString("recent_artists", current.getArtists());
             editor.apply();
 
             // open RecommendActivity
@@ -66,17 +68,20 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
         }
     }
 
+    /*
     // put the data from the array list into the adapter
     public RecentlyPlayedAdapter(ArrayList<RecentlyPlayedListItem> recentSongs) {
         RecentlyPlayedAdapter.recentSongs = recentSongs;
     }
 
-    /*
+     */
+
+    // /*
     public RecentlyPlayedAdapter(List<RecentSongs> recentSongs) {
         RecentlyPlayedAdapter.recentSongs = recentSongs;
     }
 
-     */
+    // */
 
     // pass the layout of the list item to the adapter
     @NonNull
@@ -91,14 +96,14 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
     @Override
     public void onBindViewHolder(@NonNull RecentlyPlayedViewHolder holder, int position) {
         // get the current item in the list
-        // RecentSongs current = recentSongs.get(position);
-        RecentlyPlayedListItem current = recentSongs.get(position);
+        //RecentlyPlayedListItem current = recentSongs.get(position);
+        RecentSongs current = recentSongs.get(position);
 
         // get the data from the current item in the array list and pass it to the View
-        holder.title.setText(current.getSongName());
-        holder.artist.setText(current.getArtistName());
-        // holder.title.setText(current.getName());
-        // holder.artist.setText(current.getArtists());
+        //holder.title.setText(current.getSongName());
+        //holder.artist.setText(current.getArtistName());
+        holder.title.setText(current.getName());
+        holder.artist.setText(current.getArtists());
 
     }
 
@@ -108,10 +113,10 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
         return recentSongs.size();
     }
 
-    /*
+    ///*
     public void setRecentSongs(List<RecentSongs> songs) {
-        this.recentSongs = (List<RecentSongs>) songs;
+        recentSongs = (List<RecentSongs>) songs;
     }
 
-     */
+     //*/
 }

@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "Recently_Played")
 public class RecentSongs {
     @NonNull
-    @PrimaryKey(autoGenerate = true)
-    private int uid;
-
+    //(autoGenerate = true)
+    //private int uid;
+    @PrimaryKey
     private String id;
 
     private String name;
@@ -25,7 +25,7 @@ public class RecentSongs {
      */
 
     // get the database id
-    public int getUid() {
+   /*public int getUid() {
         return uid;
     }
 
@@ -33,6 +33,7 @@ public class RecentSongs {
         this.uid = uid;
     }
 
+    */
     // get the song id
     public String getId() {
         return id;

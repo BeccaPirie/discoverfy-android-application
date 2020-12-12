@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.application.discoverfy.LoginActivity.AUTH_TOKEN;
+
 public class RecommendActivity extends AppCompatActivity {
 
     // tag
@@ -57,6 +59,8 @@ public class RecommendActivity extends AppCompatActivity {
         // put selected song in title
         SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.shared_pref_file), MODE_PRIVATE);
         songTitle.setText(sharedPreferences.getString("recent_song", "no song"));
+
+        /*
 
         // create an array list to store the items in the RecyclerView
         ArrayList<RecommendListItem> recommendListItems = new ArrayList<>();
@@ -99,8 +103,10 @@ public class RecommendActivity extends AppCompatActivity {
         // pass the Adapter to the RecyclerView
         recommendRecyclerView.setAdapter(recommendAdapter);
 
-        /*
-         ***** API *****
+         */
+
+
+         //***** API *****
         List<Recommendations> songRecommendations = new ArrayList<Recommendations>();
         RecyclerView recommendRecyclerView = findViewById(R.id.rv_recommended_songs);
         recommendRecyclerView.setHasFixedSize(true);
@@ -108,27 +114,31 @@ public class RecommendActivity extends AppCompatActivity {
         recommendRecyclerView.setAdapter(recommendAdapter);
         recommendRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         downloadRecommendations();
-        */
+
     }
 
     private void downloadRecommendations() {
-        // shared preferences
+        // save the selected recently played songs id in shared preferences
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.shared_pref_file), MODE_PRIVATE);
-        String id = sharedPreferences.getString("recent_id", "");
+        String songId = sharedPreferences.getString("recent_id", "");
 
         // endpoint
         Uri baseUri = Uri.parse("https://api.spotify.com/v1/recommendations");
         Uri.Builder builder = baseUri.buildUpon();
-        builder.appendQueryParameter("seed_tracks", id);
+        builder.appendQueryParameter("seed_tracks", songId);
         Uri uri = builder.build();
         String ENDPOINT = uri.toString();
+        Log.d("ENDPOINT", ENDPOINT);
+
+        // shared preferences
+        SharedPreferences sharedPreferences2 = getSharedPreferences(getString(R.string.spotify), 0);
 
         // new json object request
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, response -> {
             RecommendationsService service = new RecommendationsService();
             List<Recommendations> songs = service.processRecommendations(response);
             if(songs.size()>0) {
-                //recommendAdapter.setRecommendations(songs);
+                recommendAdapter.setRecommendations(songs);
                 recommendAdapter.notifyDataSetChanged();
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.error_message), Toast.LENGTH_LONG).show();
@@ -142,7 +152,7 @@ public class RecommendActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 // set bearer token as a header
                 Map<String, String> headers = new HashMap<>();
-                String token = sharedPreferences.getString("token", "");
+                String token = sharedPreferences2.getString(AUTH_TOKEN, "");
                 String auth = "Bearer " + token;
                 headers.put("Authorization", auth);
                 return headers;

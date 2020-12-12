@@ -1,6 +1,8 @@
 package com.application.discoverfy;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -24,6 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.application.discoverfy.LoginActivity.AUTH_TOKEN;
+
 public class RecentlyPlayedActivity extends AppCompatActivity {
 
     // tag
@@ -31,6 +35,8 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
 
     // adapter
     private RecentlyPlayedAdapter recentAdapter;
+
+    private Context context;
 
     // on create method
     @Override
@@ -46,6 +52,7 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.spotify), 0);
         displayUsername.setText(sharedPreferences.getString("user_id", "no user"));
 
+        /*
         // placeholder data as API not working correctly
         ArrayList<RecentlyPlayedListItem> recentlyPlayedListItems = new ArrayList<>();
         recentlyPlayedListItems.add(new RecentlyPlayedListItem("Wonder", "Shawn Mendes"));
@@ -87,7 +94,9 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         // pass the LayoutManager to the RecyclerView
         recentRecyclerView.setLayoutManager(recentLayoutManager);
 
-        /* ***** if using data from API *****
+         */
+
+       // /* ***** if using data from API *****
         List<RecentSongs> recentlyPlayedSongs = new ArrayList<RecentSongs>();
         RecyclerView recentRecyclerView = findViewById(R.id.rv_recently_played);
         recentRecyclerView.setHasFixedSize(true);
@@ -95,21 +104,25 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         recentRecyclerView.setAdapter(recentAdapter);
         recentRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         downloadRecentSongs();
-        */
+        // */
     }
-
 
     private void downloadRecentSongs() {
         // get songs from database
         List<RecentSongs> cachedSongs = SongRepository.getRepository(getApplicationContext()).getAllSongs();
         if (cachedSongs.size()>0) {
-            //recentAdapter.setRecentSongs(cachedSongs);
+            recentAdapter.setRecentSongs(cachedSongs);
             recentAdapter.notifyDataSetChanged();
             return;
         }
 
-        // endpoint
-        String ENDPOINT = "https://api.spotify.com/v1/me/player/recently-played";
+        Uri baseUri = Uri.parse("https://api.spotify.com/v1/me/player/recently-played");
+        Uri.Builder builder = baseUri.buildUpon();
+        builder.appendQueryParameter("limit", "20");
+        Uri uri = builder.build();
+        String ENDPOINT = uri.toString();
+        Log.d("endpoint", ENDPOINT);
+
         // shared preferences
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.spotify), 0);
 
@@ -117,15 +130,18 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, response -> {
             RecentSongsService service = new RecentSongsService();
             List<RecentSongs> songs = service.processSongs(response);
+            Log.d("test", String.valueOf(response));
             // store, update and delete songs from the database
             SongRepository.getRepository(getApplicationContext()).storeRecentSongs(songs);
             SongRepository.getRepository(getApplicationContext()).updateRecentSongs(songs);
             SongRepository.getRepository(getApplicationContext()).deleteRecentSongs(songs);
             if(songs.size()>0) {
+                Log.d("TEST", "list larger than 0");
                 // update the data in the adapter
-                //recentAdapter.setRecentSongs(songs);
+                recentAdapter.setRecentSongs(songs);
                 recentAdapter.notifyDataSetChanged();
             } else {
+                Log.d("TEST", "no items");
                 Toast.makeText(getApplicationContext(), getString(R.string.error_message), Toast.LENGTH_LONG).show();
             }
             }, error -> {
@@ -137,7 +153,7 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 // set bearer token as a header
                 Map<String, String> headers = new HashMap<>();
-                String token = sharedPreferences.getString("token", "");
+                String token = sharedPreferences.getString(AUTH_TOKEN, "");
                 String auth = "Bearer " + token;
                 headers.put("Authorization", auth);
                 return headers;
@@ -147,8 +163,8 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         // build queue and make request
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(jsonObjectRequest);
-    }
 
+    }
 
     // on resume method
     @Override

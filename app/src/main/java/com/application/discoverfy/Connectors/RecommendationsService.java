@@ -17,9 +17,9 @@ public class RecommendationsService {
         List<Recommendations> recommendations = new ArrayList<Recommendations>();
 
         try {
-            // get tracks array
-            JSONArray tracksArray = response.getJSONArray("tracks");
-            for (int i = 0, j = tracksArray.length(); i<j; i++) {
+        // get tracks array
+        JSONArray tracksArray = response.optJSONArray("tracks");
+        for (int i = 0; i<tracksArray.length(); i++) {
                 // get track objects from the array
                 JSONObject trackObject = tracksArray.getJSONObject(i);
                 // create new Recommendations object and set id and name
@@ -35,8 +35,8 @@ public class RecommendationsService {
                     // set artists
                     recommend.setArtists(artistObject.getString("name"));
                 }
+                recommendations.add(recommend);
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

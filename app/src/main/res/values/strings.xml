@@ -12,8 +12,10 @@
     <!-- Spotify SharedPreferences -->
     <string name="spotify" translatable="false">Spotify</string>
 
-    <!-- API Response Error Message -->
+    <!-- API Response Error Messages -->
+    <string name= "user_error">Failed to log in</string>
     <string name="error_message">Failed to download songs</string>
+
 
     <!-- LoginActivity -->
     <string name="btn_login">Login to Spotify</string>
