@@ -14,6 +14,7 @@
 
     <!-- API Response Error Messages -->
     <string name= "user_error">Failed to log in</string>
+    <string name="token_error">Failed to receive access token</string>
     <string name="error_message">Failed to download songs</string>
 
 

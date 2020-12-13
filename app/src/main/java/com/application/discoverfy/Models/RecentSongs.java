@@ -16,6 +16,10 @@ public class RecentSongs {
 
     private String artists;
 
+    public RecentSongs() {
+        id = null;
+    }
+
     // get the database id
    /*public int getUid() {
         return uid;

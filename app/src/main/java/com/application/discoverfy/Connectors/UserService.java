@@ -14,8 +14,10 @@ public class UserService {
         try {
             // create new User
             user = new User();
-            // get the user id
+            // set the user id
             user.setId(response.getString("id"));
+            // set the user display name
+            user.setDisplayName(response.getString("display_name"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

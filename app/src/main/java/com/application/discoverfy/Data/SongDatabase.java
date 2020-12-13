@@ -7,11 +7,14 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.application.discoverfy.Models.RecentSongs;
+import com.application.discoverfy.Models.Recommendations;
 
-@Database(entities = {RecentSongs.class}, version = 1)
+@Database(entities = {RecentSongs.class, Recommendations.class}, version = 2)
 public abstract class SongDatabase extends RoomDatabase {
-    // dao
+    // recent songs dao
     public abstract RecentSongsDao songsDao();
+    // recommendations dao
+    public abstract RecommendationsDao recommendationsDao();
     // instance
     private static SongDatabase INSTANCE;
 

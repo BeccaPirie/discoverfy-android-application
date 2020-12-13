@@ -44,9 +44,9 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         // TextView to display the users Spotify user ID
         TextView displayUsername = findViewById(R.id.tv_username);
 
-        // get the user ID from shared preferences and display in the TextView
+        // get the display name from shared preferences and display in the TextView
         SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.spotify), 0);
-        displayUsername.setText(sharedPreferences.getString("user_id", "no user"));
+        displayUsername.setText(sharedPreferences.getString("display_name", "no user"));
 
         // create array list
         List<RecentSongs> recentlyPlayedSongs = new ArrayList<RecentSongs>();
@@ -82,16 +82,13 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, response -> {
             RecentSongsService service = new RecentSongsService();
             List<RecentSongs> songs = service.processSongs(response);
-            // store, update and delete songs from the database
+            // store songs from the database
             SongRepository.getRepository(getApplicationContext()).storeRecentSongs(songs);
-            SongRepository.getRepository(getApplicationContext()).updateRecentSongs(songs);
-            SongRepository.getRepository(getApplicationContext()).deleteRecentSongs(songs);
             if(songs.size()>0) {
                 // update the data in the adapter
                 recentAdapter.setRecentSongs(songs);
                 recentAdapter.notifyDataSetChanged();
             } else {
-                Log.d("TEST", "no items");
                 Toast.makeText(getApplicationContext(), getString(R.string.error_message), Toast.LENGTH_LONG).show();
             }
             }, error -> {

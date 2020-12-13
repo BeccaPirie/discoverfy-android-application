@@ -26,7 +26,6 @@ public interface RecentSongsDao {
     @Delete
     public void deleteRecentSongs(RecentSongs... recentSongs);
 
-    // ***** change to order by time played *****
     // order songs alphabetically
     @Query("SELECT * from Recently_Played ORDER BY name ASC")
     public List<RecentSongs> getAllSongs();

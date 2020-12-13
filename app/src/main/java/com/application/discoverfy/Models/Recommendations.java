@@ -1,10 +1,22 @@
 package com.application.discoverfy.Models;
 
-public class Recommendations {
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "Recommendations")
+public class Recommendations {
+    @NonNull
+    @PrimaryKey
     private String id;
+
     private String name;
+
     private String artists;
+
+    public Recommendations() {
+        id = null;
+    }
 
     // get id
     public String getId() {
@@ -34,5 +46,14 @@ public class Recommendations {
     // set artists
     public void setArtists(String artists) {
         this.artists = artists;
+    }
+
+    @Override
+    public String toString() {
+        return "Recommendations{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", artists='" + artists + '\'' +
+                '}';
     }
 }

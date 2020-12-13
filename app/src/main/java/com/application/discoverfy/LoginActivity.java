@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // variables required for API
     private static final String CLIENT_ID = "842e1e18c0c14f29b0c1f6b2f3160497";
     private static final int REQUEST_CODE = 1337;
-    private static final String REDIRECT_URI = "com.example.discoverfy://callback";
+    private static final String REDIRECT_URI = "com.application.discoverfy://callback";
     private static final String SCOPES = "user-read-recently-played, user-read-email, user-read-private";
     public static final String AUTH_TOKEN = "AUTH_TOKEN";
 
@@ -88,11 +88,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, response -> {
             UserService service = new UserService();
             User user = service.processUser(response);
-            Log.d("TEST", user.id);
 
-            // save the user id in shared preferences
+            // save the user display name in shared preferences
             editor = getSharedPreferences(getString(R.string.spotify), 0).edit();
-            editor.putString("user_id", user.id);
+            //editor.putString("user_id", user.id);
+            editor.putString("display_name", user.displayName);
             editor.commit();
 
             // close the Activity and open RecentlyPlayedActivity
@@ -125,7 +125,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         AuthenticationRequest.Builder builder =
                 new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
         builder.setScopes(new String[]{SCOPES});
-        //builder.setShowDialog(true);
         AuthenticationRequest request = builder.build();
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
     }
@@ -135,12 +134,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 
-        // if result is correct and from the right activity
+        // if result is correct
         if (requestCode == REQUEST_CODE) {
             AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, intent);
 
             switch (response.getType()) {
-                // response contains token and was successful
                 case CODE:
                     break;
                 case TOKEN:
@@ -155,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 // error returned
                 case ERROR:
-                    // error response
+                    Toast.makeText(getApplicationContext(), getString(R.string.token_error), Toast.LENGTH_LONG).show();
                     break;
 
                 // cancelled
@@ -182,14 +180,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(settings);
         }
     }
-
-    /*
-    // close activity
-    public void destroy(){
-        LoginActivity.this.finish();
-    }
-
-     */
 
     // on resume
     @Override

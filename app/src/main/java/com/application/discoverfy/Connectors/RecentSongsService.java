@@ -1,7 +1,5 @@
 package com.application.discoverfy.Connectors;
 
-import android.util.Log;
-
 import com.application.discoverfy.Models.RecentSongs;
 
 import org.json.JSONArray;
@@ -21,7 +19,6 @@ public class RecentSongsService {
         try {
             // get items array
             JSONArray jsonArray = response.optJSONArray("items");
-            Log.d("TEST", String.valueOf(jsonArray.length()));
             for (int n = 0; n < jsonArray.length(); n++) {
                 // get items object
                 JSONObject itemObject = jsonArray.getJSONObject(n);

@@ -17,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.application.discoverfy.Connectors.RecommendationsService;
+import com.application.discoverfy.Data.SongRepository;
 import com.application.discoverfy.Models.Recommendations;
 
 import java.util.ArrayList;
@@ -30,11 +31,6 @@ public class RecommendActivity extends AppCompatActivity {
 
     // tag
     private static final String tag = "RecommendActivity";
-
-    // key for current song name
-    private static final String SONG = "SongName";
-    // value for current song name
-    private String songName;
 
     // adapter
     private RecommendAdapter recommendAdapter;
@@ -69,6 +65,14 @@ public class RecommendActivity extends AppCompatActivity {
     }
 
     private void downloadRecommendations() {
+
+        // get songs from database
+        List<Recommendations> cachedSongs = SongRepository.getRepository(getApplicationContext()).getAllRecommendations();
+        if (cachedSongs.size()>0) {
+            recommendAdapter.setRecommendations(cachedSongs);
+            recommendAdapter.notifyDataSetChanged();
+        }
+
         // save the selected recently played songs id in shared preferences
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.shared_pref_file), MODE_PRIVATE);
         String songId = sharedPreferences.getString("recent_id", "");
@@ -87,6 +91,7 @@ public class RecommendActivity extends AppCompatActivity {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, response -> {
             RecommendationsService service = new RecommendationsService();
             List<Recommendations> songs = service.processRecommendations(response);
+            SongRepository.getRepository(getApplicationContext()).storeRecommendations(songs);
             if(songs.size()>0) {
                 recommendAdapter.setRecommendations(songs);
                 recommendAdapter.notifyDataSetChanged();
