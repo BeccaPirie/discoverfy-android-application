@@ -7,7 +7,6 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,12 +49,6 @@ public class RecommendActivity extends AppCompatActivity {
         // TextView for the name of the song selected
         TextView songTitle = findViewById(R.id.tv_song_title_recommend);
 
-        // if saved instance state is not null, save the song name and display it in the title when activity is reinitialised
-        if (savedInstanceState != null) {
-            songName = savedInstanceState.getString(SONG);
-            songTitle.setText(songName);
-        }
-
         // put selected song in title
         SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.shared_pref_file), MODE_PRIVATE);
         songTitle.setText(sharedPreferences.getString("recent_song", "no song"));
@@ -86,7 +79,6 @@ public class RecommendActivity extends AppCompatActivity {
         builder.appendQueryParameter("seed_tracks", songId);
         Uri uri = builder.build();
         String ENDPOINT = uri.toString();
-        Log.d("ENDPOINT", ENDPOINT);
 
         // shared preferences
         SharedPreferences sharedPreferences2 = getSharedPreferences(getString(R.string.spotify), 0);
@@ -120,14 +112,6 @@ public class RecommendActivity extends AppCompatActivity {
         // build queue and make request
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(jsonObjectRequest);
-    }
-
-    // on save instance state method
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        // replace value for key
-        outState.putString(SONG, songName);
     }
 
     // on resume method

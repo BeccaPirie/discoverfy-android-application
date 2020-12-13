@@ -29,11 +29,21 @@ public class RecommendationsService {
 
                 // get artists array
                 JSONArray artistsArray = trackObject.getJSONArray("artists");
+
+                // build artists string
+                StringBuilder artists = new StringBuilder();
                 for (int k = 0, n = artistsArray.length(); k<n; k++) {
                     // get artist objects from the array
                     JSONObject artistObject = artistsArray.getJSONObject(k);
+
+                    if (k < (n-1)) {
+                        artists.append(artistObject.getString("name")).append(", ");
+                    } else {
+                        artists.append(artistObject.getString("name"));
+                    }
+                    String artistString = artists.toString();
                     // set artists
-                    recommend.setArtists(artistObject.getString("name"));
+                    recommend.setArtists(artistString);
                 }
                 recommendations.add(recommend);
             }

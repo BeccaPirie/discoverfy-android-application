@@ -36,11 +36,21 @@ public class RecentSongsService {
                 JSONObject albumObject = trackObject.optJSONObject("album");
                 // get artists array
                 JSONArray artistsArray = albumObject.optJSONArray("artists");
+
+                // build artists String
+                StringBuilder artists = new StringBuilder();
                     for (int k = 0; k < artistsArray.length(); k++) {
                         // get artists objects from the array
                         JSONObject artistObject = artistsArray.getJSONObject(k);
                         // set artists
-                        songs.setArtists(artistObject.getString("name"));
+                        if (k < artistsArray.length()-1) {
+                            artists.append(artistObject.getString("name")).append(", ");
+                        }
+                        else {
+                            artists.append(artistObject.getString("name"));
+                        }
+                        String artistsString = artists.toString();
+                        songs.setArtists(artistsString);
                     }
                     recentSongs.add(songs);
             }

@@ -1,7 +1,6 @@
 package com.application.discoverfy;
 
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -73,13 +72,8 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
             return;
         }
 
-        // build endpoint
-        Uri baseUri = Uri.parse("https://api.spotify.com/v1/me/player/recently-played");
-        Uri.Builder builder = baseUri.buildUpon();
-        builder.appendQueryParameter("limit", "20");
-        Uri uri = builder.build();
-        String ENDPOINT = uri.toString();
-        Log.d("endpoint", ENDPOINT);
+        // endpoint
+        String ENDPOINT = "https://api.spotify.com/v1/me/player/recently-played";
 
         // shared preferences
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.spotify), 0);
@@ -88,13 +82,11 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, response -> {
             RecentSongsService service = new RecentSongsService();
             List<RecentSongs> songs = service.processSongs(response);
-            Log.d("test", String.valueOf(response));
             // store, update and delete songs from the database
             SongRepository.getRepository(getApplicationContext()).storeRecentSongs(songs);
             SongRepository.getRepository(getApplicationContext()).updateRecentSongs(songs);
             SongRepository.getRepository(getApplicationContext()).deleteRecentSongs(songs);
             if(songs.size()>0) {
-                Log.d("TEST", "list larger than 0");
                 // update the data in the adapter
                 recentAdapter.setRecentSongs(songs);
                 recentAdapter.notifyDataSetChanged();
