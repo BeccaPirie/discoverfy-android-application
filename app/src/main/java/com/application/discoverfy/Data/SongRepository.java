@@ -41,6 +41,11 @@ public class SongRepository {
         recentSongsDao.insertRecentSongs(recentSongs.toArray(new RecentSongs[recentSongs.size()]));
     }
 
+    // update recently played songs in the database
+    public void updateRecentSongs(List<RecentSongs> recentSongs) {
+        recentSongsDao.updateRecentSongs(recentSongs.toArray(new RecentSongs[recentSongs.size()]));
+    }
+
     // delete recently played songs from database
     public void deleteRecentSongs(List<RecentSongs> recentSongs) {
         recentSongsDao.deleteRecentSongs(recentSongs.toArray(new RecentSongs[recentSongs.size()]));
@@ -54,6 +59,11 @@ public class SongRepository {
     // insert recommendations into database
     public void storeRecommendations(List<Recommendations> recommendations) {
         recommendationsDao.storeRecommendations(recommendations.toArray(new Recommendations[recommendations.size()]));
+    }
+
+    // update recommendations in the database
+    public void updateRecommendations(List<Recommendations> recommendations) {
+        recommendationsDao.updateRecommendations(recommendations.toArray(new Recommendations[recommendations.size()]));
     }
 
     // delete recommendations from database
