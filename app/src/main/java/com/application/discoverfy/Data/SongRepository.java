@@ -41,11 +41,6 @@ public class SongRepository {
         recentSongsDao.insertRecentSongs(recentSongs.toArray(new RecentSongs[recentSongs.size()]));
     }
 
-    // update recently played songs in database
-    public void updateRecentSongs(List<RecentSongs> recentSongs) {
-        recentSongsDao.updateRecentSongs(recentSongs.toArray(new RecentSongs[recentSongs.size()]));
-    }
-
     // delete recently played songs from database
     public void deleteRecentSongs(List<RecentSongs> recentSongs) {
         recentSongsDao.deleteRecentSongs(recentSongs.toArray(new RecentSongs[recentSongs.size()]));

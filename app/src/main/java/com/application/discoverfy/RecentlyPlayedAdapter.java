@@ -50,12 +50,10 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
         public void onClick(View v) {
             // get adapter position
             int position = getAdapterPosition();
-            //RecentlyPlayedListItem current = recentSongs.get(position);
-             RecentSongs current = recentSongs.get(position);
+            RecentSongs current = recentSongs.get(position);
 
             // save id and name to shared preferences
             SharedPreferences.Editor editor = context.getSharedPreferences(context.getString(R.string.shared_pref_file), MODE_PRIVATE).edit();
-            //editor.putString("recent_song", current.getSongName());
             editor.putString("recent_id", current.getId());
             editor.putString("recent_song", current.getName());
             editor.putString("recent_artists", current.getArtists());
@@ -66,14 +64,6 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
             context.startActivity(recommend);
         }
     }
-
-    /*
-    // put the data from the array list into the adapter
-    public RecentlyPlayedAdapter(ArrayList<RecentlyPlayedListItem> recentSongs) {
-        RecentlyPlayedAdapter.recentSongs = recentSongs;
-    }
-
-     */
 
     // put the data from the array list into the adapter
     public RecentlyPlayedAdapter(List<RecentSongs> recentSongs) {
@@ -94,7 +84,6 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
     public void onBindViewHolder(@NonNull RecentlyPlayedViewHolder holder, int position) {
         // get the current item in the list
         RecentSongs current = recentSongs.get(position);
-
         // get the data from the current item in the array list and pass it to the View
         holder.title.setText(current.getName());
         holder.artist.setText(current.getArtists());

@@ -50,11 +50,15 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
         // button to share the recommendation by SMS
         Button btnSave = findViewById(R.id.btn_share_recommendation);
         btnSave.setOnClickListener(this);
+
+        Button btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(this);
     }
 
     // on click method
     @Override
     public void onClick(View v) {
+        // if listen on YouTube button is clicked
         if(v.getId() == R.id.btn_listen_on_youtube) {
             // String to search, including current song name and artist
             String youTubeSearch = getString(R.string.youTube, songName, artist);
@@ -68,11 +72,18 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
             listenOnYoutube(dataUri);
         }
 
+        // if share recommendation button is clicked
         if(v.getId() == R.id.btn_share_recommendation) {
             // message to send
             String message = getString(R.string.message, songName, artist);
 
             shareRecommendation(message);
+        }
+
+        // if back button is clicked
+        if (v.getId() == R.id.btn_back) {
+            Intent back = new Intent(ActionActivity.this, RecentlyPlayedActivity.class);
+            startActivity(back);
         }
 
     }

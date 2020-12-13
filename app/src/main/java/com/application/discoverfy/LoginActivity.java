@@ -91,7 +91,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             // save the user display name in shared preferences
             editor = getSharedPreferences(getString(R.string.spotify), 0).edit();
-            //editor.putString("user_id", user.id);
             editor.putString("display_name", user.displayName);
             editor.commit();
 

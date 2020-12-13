@@ -39,7 +39,7 @@
             <TextView
                 android:id="@+id/tv_artist_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:text="@string/tv_artist_name"
                 android:textAlignment="center"
                 android:textSize="30sp"
@@ -57,6 +57,12 @@
                 android:layout_height="70dp"
                 android:text="@string/btn_share_recommendation"
                 android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:text="Back to Recently Played Songs" />
         </LinearLayout>
     </ScrollView>
 
