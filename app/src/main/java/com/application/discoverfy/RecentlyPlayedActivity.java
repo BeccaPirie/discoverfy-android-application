@@ -48,7 +48,7 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.spotify), 0);
         displayUsername.setText(sharedPreferences.getString("display_name", "no user"));
 
-        // create array list
+        // create list
         List<RecentSongs> recentlyPlayedSongs = new ArrayList<RecentSongs>();
         // initialise the RecyclerView
         RecyclerView recentRecyclerView = findViewById(R.id.rv_recently_played);

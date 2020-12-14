@@ -59,7 +59,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         }
     }
 
-    // store the information from the array list in the adapter
+    // store the information from the list in the adapter
     public RecommendAdapter(List<Recommendations> recommendListItems) {
         recommend = recommendListItems;
     }
@@ -84,13 +84,13 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         holder.artist.setText(current.getArtists());
     }
 
-    // return the number of items in the array list
+    // return the number of items in the list
     @Override
     public int getItemCount() {
         return recommend.size();
     }
 
-
+    // set the recommendations
     public void setRecommendations(List<Recommendations> songs) {
         this.recommend = songs;
     }

@@ -21,7 +21,7 @@ import static android.content.Context.MODE_PRIVATE;
 // class for the Adapter for the RecentlyPlayedActivity RecyclerView
 public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAdapter.RecentlyPlayedViewHolder> {
 
-    // variable to store the array list of items
+    // variable to store the list of items
     private static List<RecentSongs> recentSongs;
 
     // ViewHolder
@@ -56,7 +56,6 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
             SharedPreferences.Editor editor = context.getSharedPreferences(context.getString(R.string.shared_pref_file), MODE_PRIVATE).edit();
             editor.putString("recent_id", current.getId());
             editor.putString("recent_song", current.getName());
-            editor.putString("recent_artists", current.getArtists());
             editor.apply();
 
             // open RecommendActivity
@@ -65,7 +64,7 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
         }
     }
 
-    // put the data from the array list into the adapter
+    // put the data from the list into the adapter
     public RecentlyPlayedAdapter(List<RecentSongs> recentSongs) {
         RecentlyPlayedAdapter.recentSongs = recentSongs;
     }
@@ -84,13 +83,13 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
     public void onBindViewHolder(@NonNull RecentlyPlayedViewHolder holder, int position) {
         // get the current item in the list
         RecentSongs current = recentSongs.get(position);
-        // get the data from the current item in the array list and pass it to the View
+        // get the data from the current item in the list and pass it to the View
         holder.title.setText(current.getName());
         holder.artist.setText(current.getArtists());
 
     }
 
-    // return the number of items in the array list
+    // return the number of items in the list
     @Override
     public int getItemCount() {
         return recentSongs.size();

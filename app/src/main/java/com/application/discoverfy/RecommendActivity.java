@@ -49,7 +49,7 @@ public class RecommendActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.shared_pref_file), MODE_PRIVATE);
         songTitle.setText(sharedPreferences.getString("recent_song", "no song"));
 
-        // create new array list
+        // create new list
         List<Recommendations> songRecommendations = new ArrayList<Recommendations>();
         // initialise the RecyclerView
         RecyclerView recommendRecyclerView = findViewById(R.id.rv_recommended_songs);
