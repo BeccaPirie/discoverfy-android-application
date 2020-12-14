@@ -26,7 +26,7 @@ public interface RecommendationsDao {
     @Delete
     public void deleteRecommendations(Recommendations... recommendations);
 
-    // get all recommendations
-    @Query("SELECT * from Recommendations ORDER BY name ASC")
+    // select the latest 20 entries
+    @Query("SELECT * from Recommendations ORDER BY uid DESC LIMIT 20")
     public List<Recommendations> getAllRecommendations();
 }

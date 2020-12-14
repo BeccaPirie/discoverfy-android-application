@@ -6,22 +6,19 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Recently_Played")
 public class RecentSongs {
+
+
     @NonNull
-    //(autoGenerate = true)
-    //private int uid;
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    private int uid;
+
     private String id;
 
     private String name;
 
     private String artists;
 
-    public RecentSongs() {
-        id = null;
-    }
-
-    // get the database id
-   /*public int getUid() {
+    public int getUid() {
         return uid;
     }
 
@@ -29,7 +26,6 @@ public class RecentSongs {
         this.uid = uid;
     }
 
-    */
     // get the song id
     public String getId() {
         return id;
@@ -56,12 +52,4 @@ public class RecentSongs {
     // set the songs artists
     public void setArtists(String artists) { this.artists = artists; }
 
-    @Override
-    public String toString() {
-        return "RecentSongs{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", artists='" + artists + '\'' +
-                '}';
-    }
 }

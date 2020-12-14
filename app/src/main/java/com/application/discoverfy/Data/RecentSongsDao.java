@@ -26,8 +26,8 @@ public interface RecentSongsDao {
     @Delete
     public void deleteRecentSongs(RecentSongs... recentSongs);
 
-    // order songs alphabetically
-    @Query("SELECT * from Recently_Played ORDER BY name ASC")
+    // select 20 entries
+    @Query("SELECT * from Recently_Played LIMIT 20")
     public List<RecentSongs> getAllSongs();
 
 }

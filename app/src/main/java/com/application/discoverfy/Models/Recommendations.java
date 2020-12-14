@@ -7,15 +7,21 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "Recommendations")
 public class Recommendations {
     @NonNull
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    private int uid;
+
     private String id;
 
     private String name;
 
     private String artists;
 
-    public Recommendations() {
-        id = null;
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     // get id
@@ -48,12 +54,4 @@ public class Recommendations {
         this.artists = artists;
     }
 
-    @Override
-    public String toString() {
-        return "Recommendations{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", artists='" + artists + '\'' +
-                '}';
-    }
 }
