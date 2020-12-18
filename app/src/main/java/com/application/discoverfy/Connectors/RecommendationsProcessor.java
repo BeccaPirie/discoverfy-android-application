@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecommendationsService {
+public class RecommendationsProcessor {
 
     // process song recommendations method
     public List<Recommendations> processRecommendations(JSONObject response) {
@@ -22,10 +22,16 @@ public class RecommendationsService {
         for (int i = 0; i<tracksArray.length(); i++) {
                 // get track objects from the array
                 JSONObject trackObject = tracksArray.getJSONObject(i);
-                // create new Recommendations object and set id and name
+                // create new Recommendations object and set id, name and uri
                 Recommendations recommend = new Recommendations();
                 recommend.setId(trackObject.getString("id"));
                 recommend.setName(trackObject.getString("name"));
+                recommend.setUri(trackObject.getString("uri"));
+
+                // get external_urls object
+                JSONObject webLinkObject = trackObject.optJSONObject("external_urls");
+                // set web link
+                recommend.setWebLink(webLinkObject.getString("spotify"));
 
                 // get artists array
                 JSONArray artistsArray = trackObject.getJSONArray("artists");
@@ -45,6 +51,7 @@ public class RecommendationsService {
                     // set artists
                     recommend.setArtists(artistString);
                 }
+                // add data to the list
                 recommendations.add(recommend);
             }
         } catch (JSONException e) {

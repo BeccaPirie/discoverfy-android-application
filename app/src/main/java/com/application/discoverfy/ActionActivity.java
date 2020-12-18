@@ -1,6 +1,8 @@
 package com.application.discoverfy;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,8 +12,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import static com.application.discoverfy.RecommendAdapter.EXTRA_ARTIST;
-import static com.application.discoverfy.RecommendAdapter.EXTRA_SONG_TITLE;
+import static com.application.discoverfy.Adapters.RecommendAdapter.EXTRA_ARTIST;
+import static com.application.discoverfy.Adapters.RecommendAdapter.EXTRA_SONG_TITLE;
 
 public class ActionActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -22,6 +24,9 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
     private String songName;
     private String artist;
 
+    // shared preferences
+    private SharedPreferences sharedPreferences;
+
     // on create method
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +34,14 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
         Log.d(tag, "is in onCreate" );
         setContentView(R.layout.activity_action);
 
+        // shared preferences
+        sharedPreferences = this.getSharedPreferences(getString(R.string.spotify), MODE_PRIVATE);
+
         // variables to store the song title, the artist name and the album name
         TextView songTitle = findViewById(R.id.tv_song_title);
         TextView artistName = findViewById(R.id.tv_artist_name);
 
+        // intent with song title and artists
         Intent displaySelected = getIntent();
 
         // set song title
@@ -43,14 +52,15 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
         artist = displaySelected.getStringExtra(EXTRA_ARTIST);
         artistName.setText(artist);
 
-        // button to search the song on YouTube
-        Button btnListen = findViewById(R.id.btn_listen_on_youtube);
-        btnListen.setOnClickListener(this);
+        // button to listen to the song on spotify
+        Button btn_listen = findViewById(R.id.btn_listen_on_spotify);
+        btn_listen.setOnClickListener(this);
 
         // button to share the recommendation by SMS
         Button btnSave = findViewById(R.id.btn_share_recommendation);
         btnSave.setOnClickListener(this);
 
+        // button to go back to the main page
         Button btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(this);
     }
@@ -58,46 +68,52 @@ public class ActionActivity extends AppCompatActivity implements View.OnClickLis
     // on click method
     @Override
     public void onClick(View v) {
-        // if listen on YouTube button is clicked
-        if(v.getId() == R.id.btn_listen_on_youtube) {
-            // String to search, including current song name and artist
-            String youTubeSearch = getString(R.string.youTube, songName, artist);
 
-            // uri to search song on YouTube
-            Uri baseUri = Uri.parse("https://www.youtube.com/results");
-            Uri.Builder builder = baseUri.buildUpon();
-            builder.appendQueryParameter("search_query", youTubeSearch);
-            Uri dataUri = builder.build();
-
-            listenOnYoutube(dataUri);
+        // if listen on Spotify button is clicked
+        if(v.getId() == R.id.btn_listen_on_spotify) {
+            // check if Spotify is installed
+            PackageManager pm = getPackageManager();
+            boolean isSpotifyInstalled;
+            try {
+                pm.getPackageInfo("com.spotify.music", 0);
+                isSpotifyInstalled = true;
+            } catch (PackageManager.NameNotFoundException e) {
+                isSpotifyInstalled = false;
+            }
+            listenOnSpotify(isSpotifyInstalled);
         }
 
         // if share recommendation button is clicked
         if(v.getId() == R.id.btn_share_recommendation) {
             // message to send
-            String message = getString(R.string.message, songName, artist);
-
+            String message = getString(R.string.message, songName, artist,
+                    sharedPreferences.getString("web_link", ""));
             shareRecommendation(message);
         }
 
         // if back button is clicked
         if (v.getId() == R.id.btn_back) {
-            Intent back = new Intent(ActionActivity.this, RecentlyPlayedActivity.class);
+            Intent back = new Intent(ActionActivity.this, MainActivity.class);
             startActivity(back);
         }
-
     }
 
-    // listen on YouTube method
-    private void listenOnYoutube(Uri dataUri) {
-        // intent so send data
-        Intent youTube = new Intent(Intent.ACTION_VIEW);
-        // set data
-        youTube.setData(dataUri);
-        // start activity
-        if(youTube.resolveActivity(getPackageManager()) != null) {
-            startActivity(youTube);
+    // listen on Spotify method
+    private void listenOnSpotify(boolean isSpotifyInstalled) {
+        // if Spotify is installed, open track in Spotify
+        Uri uri;
+        Intent spotify = new Intent(Intent.ACTION_VIEW);
+        if (isSpotifyInstalled) {
+            uri = Uri.parse(sharedPreferences.getString("uri", ""));
+            spotify.setData(uri);
+            spotify.putExtra(Intent.EXTRA_REFERRER, Uri.parse
+                    ("android-app://" + getApplicationContext().getPackageName()));
+        // otherwise, open web link
+        } else {
+            uri = Uri.parse(sharedPreferences.getString("web_link", ""));
+            spotify.setData(uri);
         }
+        startActivity(spotify);
     }
 
     // share recommendation method

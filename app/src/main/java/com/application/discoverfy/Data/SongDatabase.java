@@ -8,11 +8,15 @@ import androidx.room.RoomDatabase;
 
 import com.application.discoverfy.Models.RecentSongs;
 import com.application.discoverfy.Models.Recommendations;
+import com.application.discoverfy.Models.TopTracks;
 
-@Database(entities = {RecentSongs.class, Recommendations.class}, version = 2)
+@Database(entities = {RecentSongs.class, Recommendations.class, TopTracks.class}, version = 3)
 public abstract class SongDatabase extends RoomDatabase {
     // recent songs dao
     public abstract RecentSongsDao songsDao();
+
+    // top trackd dao
+    public abstract TopTracksDao topTracksDao();
     // recommendations dao
     public abstract RecommendationsDao recommendationsDao();
     // instance
@@ -24,7 +28,7 @@ public abstract class SongDatabase extends RoomDatabase {
             synchronized (SongDatabase.class) {
                 if(INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context,
-                            SongDatabase.class, "recent_songs_database")
+                            SongDatabase.class, "songs_database")
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
                             .build();

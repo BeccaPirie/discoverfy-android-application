@@ -1,27 +1,30 @@
 package com.application.discoverfy.Models;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Recently_Played")
 public class RecentSongs {
 
-
     @NonNull
     @PrimaryKey(autoGenerate = true)
     private int uid;
 
+    @ColumnInfo(name = "song_id")
     private String id;
 
     private String name;
 
     private String artists;
 
+    // get the uid
     public int getUid() {
         return uid;
     }
 
+    // set the uid
     public void setUid(int uid) {
         this.uid = uid;
     }

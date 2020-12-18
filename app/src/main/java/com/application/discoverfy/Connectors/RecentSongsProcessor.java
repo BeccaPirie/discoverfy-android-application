@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecentSongsService {
+public class RecentSongsProcessor {
 
     // process songs method
     public List<RecentSongs> processSongs(JSONObject response) {
@@ -47,8 +47,10 @@ public class RecentSongsService {
                             artists.append(artistObject.getString("name"));
                         }
                         String artistsString = artists.toString();
+                        // set artists
                         songs.setArtists(artistsString);
                     }
+                    // add data to the list
                     recentSongs.add(songs);
             }
             } catch (JSONException e) {

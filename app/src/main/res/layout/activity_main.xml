@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btn_recent_tracks"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="200dp"
+        android:text="@string/btn_recent_tracks"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_top_tracks"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="40dp"
+        android:text="@string/btn_top_tracks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_recent_tracks" />
+
+    <TextView
+        android:id="@+id/tv_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/tv_welcome"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_username"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_welcome"
+        app:layout_constraintStart_toStartOf="@+id/tv_welcome"
+        app:layout_constraintTop_toBottomOf="@+id/tv_welcome"
+        tools:text="becca_rgu" />
+
+    <TextView
+        android:id="@+id/tv_intro"
+        android:layout_width="326dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/tv_intro"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/btn_top_tracks"
+        app:layout_constraintStart_toStartOf="@+id/btn_recent_tracks"
+        app:layout_constraintTop_toBottomOf="@+id/tv_username" />
+</androidx.constraintlayout.widget.ConstraintLayout>

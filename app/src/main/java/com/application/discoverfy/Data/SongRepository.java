@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.application.discoverfy.Models.RecentSongs;
 import com.application.discoverfy.Models.Recommendations;
+import com.application.discoverfy.Models.TopTracks;
 
 import java.util.List;
 
@@ -18,6 +19,9 @@ public class SongRepository {
     // RecentSongDao
     private RecentSongsDao recentSongsDao;
 
+    // TopTracksDao
+    private TopTracksDao topTracksDao;
+
     // RecommendationsDao
     private RecommendationsDao recommendationsDao;
 
@@ -30,6 +34,7 @@ public class SongRepository {
                     INSTANCE.context = context;
                     SongDatabase database = SongDatabase.getDatabase(context);
                     INSTANCE.recentSongsDao = database.songsDao();
+                    INSTANCE.topTracksDao = database.topTracksDao();
                     INSTANCE.recommendationsDao = database.recommendationsDao();
             }
         }
@@ -55,6 +60,27 @@ public class SongRepository {
     public List<RecentSongs> getAllSongs() {
         return recentSongsDao.getAllSongs();
     }
+
+    // insert top tracks into database
+    public void storeTopTracks(List<TopTracks> topTracks) {
+        topTracksDao.insertTopTracks(topTracks.toArray(new TopTracks[topTracks.size()]));
+    }
+
+    // update top tracks in the database
+    public void updateTopTracks(List<TopTracks> topTracks) {
+        topTracksDao.updateTopTracks(topTracks.toArray(new TopTracks[topTracks.size()]));
+    }
+
+    // delete top tracks from the database
+    public void deleteTopTracks(List<TopTracks> topTracks) {
+        topTracksDao.deleteTopTracks(topTracks.toArray(new TopTracks[topTracks.size()]));
+    }
+
+    // get all top tracks
+    public List<TopTracks> getAllTracks() {
+        return topTracksDao.getAllTracks();
+    }
+
 
     // insert recommendations into database
     public void storeRecommendations(List<Recommendations> recommendations) {

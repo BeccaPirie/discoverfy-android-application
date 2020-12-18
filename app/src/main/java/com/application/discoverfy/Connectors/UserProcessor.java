@@ -5,7 +5,7 @@ import com.application.discoverfy.Models.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UserService {
+public class UserProcessor {
 
     // process user method
     public User processUser(JSONObject response) {

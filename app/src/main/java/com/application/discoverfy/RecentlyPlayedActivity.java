@@ -3,19 +3,18 @@ package com.application.discoverfy;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.application.discoverfy.Connectors.RecentSongsService;
+import com.application.discoverfy.Adapters.RecentlyPlayedAdapter;
+import com.application.discoverfy.Connectors.RecentSongsProcessor;
 import com.application.discoverfy.Data.SongRepository;
 import com.application.discoverfy.Models.RecentSongs;
 
@@ -40,13 +39,6 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(tag, "is in onCreate");
         setContentView(R.layout.activity_recently_played);
-
-        // TextView to display the users Spotify user ID
-        TextView displayUsername = findViewById(R.id.tv_username);
-
-        // get the display name from shared preferences and display in the TextView
-        SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.spotify), 0);
-        displayUsername.setText(sharedPreferences.getString("display_name", "no user"));
 
         // create list
         List<RecentSongs> recentlyPlayedSongs = new ArrayList<RecentSongs>();
@@ -80,7 +72,7 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
 
         // build volley request
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, response -> {
-            RecentSongsService service = new RecentSongsService();
+            RecentSongsProcessor service = new RecentSongsProcessor();
             List<RecentSongs> songs = service.processSongs(response);
             // store songs from the database
             SongRepository.getRepository(getApplicationContext()).storeRecentSongs(songs);
@@ -97,7 +89,7 @@ public class RecentlyPlayedActivity extends AppCompatActivity {
             }) {
             // get headers method
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
+            public Map<String, String> getHeaders() {
                 // set bearer token as a header
                 Map<String, String> headers = new HashMap<>();
                 String token = sharedPreferences.getString(AUTH_TOKEN, "");

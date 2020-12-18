@@ -1,7 +1,8 @@
-package com.application.discoverfy;
+package com.application.discoverfy.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.application.discoverfy.ActionActivity;
 import com.application.discoverfy.Models.Recommendations;
+import com.application.discoverfy.R;
 
 import java.util.List;
 
@@ -50,6 +53,12 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
             // get adapter position
             int position = getAdapterPosition();
             Recommendations current = recommend.get(position);
+
+            SharedPreferences.Editor editor = context.getSharedPreferences(
+                    context.getString(R.string.spotify), Context.MODE_PRIVATE).edit();
+            editor.putString("uri", current.getUri());
+            editor.putString("web_link", current.getWebLink());
+            editor.apply();
 
             // put song title and artist as extras and start ActionActivity
             final Intent displaySelected = new Intent(context, ActionActivity.class);

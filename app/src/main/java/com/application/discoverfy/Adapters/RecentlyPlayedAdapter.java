@@ -1,4 +1,4 @@
-package com.application.discoverfy;
+package com.application.discoverfy.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.discoverfy.Models.RecentSongs;
+import com.application.discoverfy.R;
+import com.application.discoverfy.RecommendActivity;
 
 import java.util.List;
 
@@ -53,9 +55,9 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
             RecentSongs current = recentSongs.get(position);
 
             // save id and name to shared preferences
-            SharedPreferences.Editor editor = context.getSharedPreferences(context.getString(R.string.shared_pref_file), MODE_PRIVATE).edit();
-            editor.putString("recent_id", current.getId());
-            editor.putString("recent_song", current.getName());
+            SharedPreferences.Editor editor = context.getSharedPreferences(context.getString(R.string.spotify), MODE_PRIVATE).edit();
+            editor.putString("id", current.getId());
+            editor.putString("song", current.getName());
             editor.apply();
 
             // open RecommendActivity
@@ -95,6 +97,7 @@ public class RecentlyPlayedAdapter extends RecyclerView.Adapter<RecentlyPlayedAd
         return recentSongs.size();
     }
 
+    // set top tracks
     public void setRecentSongs(List<RecentSongs> songs) {
         recentSongs = songs;
     }

@@ -5,7 +5,7 @@
 
     <!-- SharedPreferences -->
     <string name="shared_pref_file" translatable="false">com.application.discoverfy</string>
-    <string name="prefer_image_choice" translatable ="false">prefer_image_choice</string>
+    <string name="prefer_image_choice" translatable="false">prefer_image_choice</string>
     <string name="shared_pref_image_default" translatable="false">shared_pref_image_default</string>
     <string name="shared_pref_image_null" translatable="false">shared_pref_image_null</string>
 
@@ -13,28 +13,36 @@
     <string name="spotify" translatable="false">Spotify</string>
 
     <!-- API Response Error Messages -->
-    <string name= "user_error">Failed to log in</string>
-    <string name="token_error">Failed to receive access token</string>
+    <string name="user_error">Failed to log in</string>
     <string name="error_message">Failed to download songs</string>
-
+    <string name="playlist_error">Failed to download playlists</string>
 
     <!-- LoginActivity -->
     <string name="btn_login">Login to Spotify</string>
-    <string name="btn_settings">Settings</string>
-    <string name="iv_legend">Harry Styles</string>
 
-    <!-- SettingActivity -->
-    <string name="tv_settings">Settings</string>
-    <string name="rb_show_image">Show image</string>
-    <string name="rb_no_image">Don\'t show image</string>
-
-    <!-- RecentlyPlayedActivity -->
+    <!-- MainActivity -->
     <string name="tv_welcome">Welcome</string>
     <string name="tv_username">%1$s</string>
-    <string name="tv_recent_title">Your Recently Played Songs</string>
+    <string name="tv_intro">Discoverfy allows you to find new music based on the songs you already
+        love. View your recently played or top tracks to discover your new favourite songs.</string>
+    <string name="btn_recent_tracks">Recently Played Tracks</string>
+    <string name="btn_top_tracks">Top Tracks</string>
+    <string name="tv_recent_releases">Recent Releases</string>
+
+    <!-- RecentlyPlayedActivity -->
+    <string name="tv_recent_title">Your Recently Played Tracks</string>
     <string name="tv_rp_title">%1$s</string>
     <string name="tv_rp_artist">%1$s</string>
-    <string name="btn_discover">Recommend</string>
+    <string name="btn_discover">Related Tracks</string>
+
+    <!-- TopTracksActivity -->
+    <string name="tv_top_tracks_title">Your Top Tracks</string>
+    <string name="tv_top_title">%1$1</string>
+    <string name="tv_top_artists">%1$1</string>
+    <string name="btn_top_recommend">Related Tracks</string>
+    <string name="btn_short_term">Last Month</string>
+    <string name="btn_medium_term">Last 6 Months</string>
+    <string name="btn_long_term">All Time</string>
 
     <!-- RecommendActivity -->
     <string name="tv_recommendations_title">Recommendations Based On</string>
@@ -42,13 +50,16 @@
     <string name="tv_r_song_title">%1$s</string>
     <string name="tv_r_artist">%1$s</string>
     <string name="btn_options">Options</string>
+    <string name="btn_create_playlist">Create Playlist</string>
 
     <!-- ActionActivity -->
     <string name="tv_song_title">%1$s</string>
     <string name="tv_artist_name">%1$s</string>
-    <string name="btn_listen_on_youtube">Listen on Youtube</string>
+    <string name="btn_listen_on_spotify">Listen on Spotify</string>
+    <string name="btn_add_to_playlist">Save to Spotify Library</string>
     <string name="btn_share_recommendation">Share Recommendation</string>
     <string name="youTube">%1$s %2$s</string>
-    <string name="message">Check out %1$s by %2$s</string>
+    <string name="message">Check out %1$s by %2$s: %3$s</string>
+    <string name="btn_back">Back to Main Page</string>
 
 </resources>

@@ -11,12 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.application.discoverfy.Connectors.RecommendationsService;
+import com.application.discoverfy.Adapters.RecommendAdapter;
+import com.application.discoverfy.Connectors.RecommendationsProcessor;
 import com.application.discoverfy.Data.SongRepository;
 import com.application.discoverfy.Models.Recommendations;
 
@@ -46,8 +46,8 @@ public class RecommendActivity extends AppCompatActivity {
         TextView songTitle = findViewById(R.id.tv_song_title_recommend);
 
         // put selected song in title
-        SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.shared_pref_file), MODE_PRIVATE);
-        songTitle.setText(sharedPreferences.getString("recent_song", "no song"));
+        SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.spotify), MODE_PRIVATE);
+        songTitle.setText(sharedPreferences.getString("song", "no song"));
 
         // create new list
         List<Recommendations> songRecommendations = new ArrayList<Recommendations>();
@@ -74,8 +74,8 @@ public class RecommendActivity extends AppCompatActivity {
         }
 
         // save the selected recently played songs id in shared preferences
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.shared_pref_file), MODE_PRIVATE);
-        String songId = sharedPreferences.getString("recent_id", "");
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.spotify), MODE_PRIVATE);
+        String songId = sharedPreferences.getString("id", "");
 
         // endpoint
         Uri baseUri = Uri.parse("https://api.spotify.com/v1/recommendations");
@@ -84,12 +84,9 @@ public class RecommendActivity extends AppCompatActivity {
         Uri uri = builder.build();
         String ENDPOINT = uri.toString();
 
-        // shared preferences
-        SharedPreferences sharedPreferences2 = getSharedPreferences(getString(R.string.spotify), 0);
-
         // new json object request
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, ENDPOINT, null, response -> {
-            RecommendationsService service = new RecommendationsService();
+            RecommendationsProcessor service = new RecommendationsProcessor();
             List<Recommendations> songs = service.processRecommendations(response);
             SongRepository.getRepository(getApplicationContext()).storeRecommendations(songs);
             if(songs.size()>0) {
@@ -104,10 +101,10 @@ public class RecommendActivity extends AppCompatActivity {
         }) {
             // get headers method
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
+            public Map<String, String> getHeaders() {
                 // set bearer token as a header
                 Map<String, String> headers = new HashMap<>();
-                String token = sharedPreferences2.getString(AUTH_TOKEN, "");
+                String token = sharedPreferences.getString(AUTH_TOKEN, "");
                 String auth = "Bearer " + token;
                 headers.put("Authorization", auth);
                 return headers;
